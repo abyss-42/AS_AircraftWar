@@ -1,28 +1,48 @@
 package com.example.myapplication.application;
 
+import static com.example.myapplication.MainActivity.WINDOW_HEIGHT;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.os.Build;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import com.example.myapplication.ImageManager;
+
 import com.example.myapplication.GameActivity;
 import com.example.myapplication.aircraft.*;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
-import com.example.myapplication.GameActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.basic.AbstractFlyingObject;
+import com.example.myapplication.bullet.BaseBullet;
+import com.example.myapplication.bullet.EnemyBullet;
+import com.example.myapplication.factory.BaseEnemyFactory;
+import com.example.myapplication.factory.EliteEnemyFactory;
+import com.example.myapplication.factory.MobEnemyFactory;
+import com.example.myapplication.prop.BaseProp;
+import com.example.myapplication.prop.PropBomb;
+import com.example.myapplication.prop.PropBullet;
+import com.example.myapplication.prop.PropImmune;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runnable {
     private SurfaceHolder surfaceHolder;
     private Canvas canvas;
     private Bitmap bitmap;
     private Paint mPaint;
-    private int backGroundTop = 0;
+    protected int backGroundTop = 0;
     private ImageManager imageManager;
 
 
@@ -36,7 +56,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
     /**
      * Scheduled 线程池，用于任务调度
      */
-    private final ScheduledExecutorService executorService;
+//    private final ScheduledExecutorService executorService;
 
     /**
      * 时间间隔(ms)，控制刷新频率
@@ -92,8 +112,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
          * 关于alibaba code guide：可命名的 ThreadFactory 一般需要第三方包
          * apache 第三方库： org.apache.commons.lang3.concurrent.BasicThreadFactory
          */
-        this.executorService = new ScheduledThreadPoolExecutor(1,
-                new BasicThreadFactory.Builder().namingPattern("game-action-%d").daemon(true).build());
+//        this.executorService = new ScheduledThreadPoolExecutor(1,
+//                new BasicThreadFactory.Builder().namingPattern("game-action-%d").daemon(true).build());
 
         //启动英雄机鼠标监听
 //        new HeroController(this, heroAircraft);
@@ -136,12 +156,26 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
     /**
      * 按一定概率创建普通敌机和精英敌机
      */
-    public abstract BaseEnemy createEnemy();
+    //把Simple的复制过来当默认了((
+    public BaseEnemy createEnemy(){
+        Random propR = new Random();
+        float whichProp;
+        whichProp = propR.nextFloat();
+        BaseEnemyFactory enemyFactory;
+        if(whichProp<=0.2){
+            enemyFactory = new EliteEnemyFactory();
+        }else{
+            enemyFactory = new MobEnemyFactory();
+        }
+        enemyFactory.setHp(30);
+        return enemyFactory.createEnemy();
+    };
 
 
     /**
      * 游戏启动入口，执行游戏逻辑
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public final void action() {
 
         // 定时任务：绘制、对象产生、碰撞判定、击毁及结束判定
@@ -182,7 +216,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
             postProcessAction();
 
             //每个时刻重绘界面
-            repaint();
+//            repaint();
 
             // 游戏结束检查
             if (heroAircraft.getHp() <= 0) {
@@ -212,7 +246,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
          * 以固定延迟时间进行执行
          * 本次任务执行完成后，需要延迟设定的延迟时间，才会执行新的任务
          */
-        executorService.scheduleWithFixedDelay(task, timeInterval, timeInterval, TimeUnit.MILLISECONDS);
+//        executorService.scheduleWithFixedDelay(task, timeInterval, timeInterval, TimeUnit.MILLISECONDS);
 //        if(musicTurnOn){
 //            backGroundMusic = new LoopMusicThread("src/videos/bgm.wav");
 //            backGroundMusic.start();
@@ -381,6 +415,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
      * <p>
      * 无效的原因可能是撞击或者飞出边界
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void postProcessAction() {
         enemyBullets.removeIf(AbstractFlyingObject::notValid);
         heroBullets.removeIf(AbstractFlyingObject::notValid);
@@ -422,12 +457,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
     //      Paint 各部分
     //***********************
 
-    public abstract void paintBackground(Paint mPaint, Canvas canvas){
+    public void paintBackground(Paint mPaint, Canvas canvas){
         //绘制滚动背景图片
         canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE, 0, backGroundTop-GameActivity.WINDOW_HEIGHT, mPaint);
         canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE, 0, backGroundTop,mPaint);
         backGroundTop+=1;
-        if(backGroundTop == screenHeight)
+        if(backGroundTop == WINDOW_HEIGHT);
             backGroundTop = 0;
 
     }
@@ -474,11 +509,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
     private void paintScoreAndLife(Paint mPaint) {
         int x = 10;
         int y = 25;
-        mPaint.setColor(new Color(16711680));
+        mPaint.setColor(Color.WHITE);
         mPaint.setTextSize(22);
         mPaint.setTypeface(Typeface.SANS_SERIF);
         mPaint.setFakeBoldText(true);
-        mPaint.setFont(new Font("SansSerif", Font.BOLD, 22));
+//        mPaint.setFont(new Font("SansSerif", Font.BOLD, 22));
         canvas.drawText("SCORE:" + this.score, x, y, mPaint);
         y = y + 20;
         canvas.drawText("LIFE:" + this.heroAircraft.getHp(), x, y, mPaint);
@@ -487,7 +522,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
         return backGroundTop;
     }
 
+    @Override
     public boolean onTouchEvent(MotionEvent event){
-
+        return true;
     }
+
 }

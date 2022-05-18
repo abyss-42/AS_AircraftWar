@@ -1,9 +1,15 @@
 package com.example.myapplication.application;
 
+import static com.example.myapplication.MainActivity.WINDOW_HEIGHT;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.view.SurfaceHolder;
 
 import androidx.annotation.NonNull;
 
+import com.example.myapplication.GameActivity;
 import com.example.myapplication.aircraft.BaseEnemy;
 import com.example.myapplication.aircraft.Boss;
 import com.example.myapplication.factory.*;
@@ -13,7 +19,7 @@ import com.example.myapplication.factory.*;
 import java.awt.*;
 import java.util.Random;
 
-public class NormalGame extends Game{
+public class NormalGameView extends GameView{
 //    private LoopMusicThread bossMusic = null;
     /**
      * 敌机属性
@@ -22,8 +28,8 @@ public class NormalGame extends Game{
     private int hp = 60;
     private int power = 30;
     private int lastScore = 0;
-    public NormalGame(){
-        super();
+    public NormalGameView(Context context){
+        super(context);
         //画面中最多出现6架精英机和普通敌机
         super.setEnemyMaxNumber(6);
         super.setCycleDuration(500);
@@ -88,9 +94,14 @@ public class NormalGame extends Game{
 
 
     @Override
-    public void paintBackground(Graphics g){
-        g.drawImage(ImageManager.BACKGROUND_IMAGE_NORMAL, 0, super.getBackGroundTop() - Main.WINDOW_HEIGHT, null);
-        g.drawImage(ImageManager.BACKGROUND_IMAGE_NORMAL, 0, super.getBackGroundTop(), null);
+    public void paintBackground(Paint mPaint, Canvas canvas){
+        //绘制滚动背景图片
+        canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE_NORMAL, 0, backGroundTop- GameActivity.WINDOW_HEIGHT, mPaint);
+        canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE_NORMAL, 0, backGroundTop,mPaint);
+        backGroundTop+=1;
+        if(backGroundTop == WINDOW_HEIGHT);
+        backGroundTop = 0;
+
     }
 
     @Override

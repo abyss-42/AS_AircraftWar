@@ -1,9 +1,15 @@
 package com.example.myapplication.application;
 
+import static com.example.myapplication.MainActivity.WINDOW_HEIGHT;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.view.SurfaceHolder;
 
 import androidx.annotation.NonNull;
 
+import com.example.myapplication.GameActivity;
 import com.example.myapplication.aircraft.BaseEnemy;
 import com.example.myapplication.factory.BaseEnemyFactory;
 import com.example.myapplication.factory.EliteEnemyFactory;
@@ -12,10 +18,10 @@ import com.example.myapplication.factory.MobEnemyFactory;
 import java.awt.*;
 import java.util.Random;
 
-public class SimpleGame extends Game{
+public class SimpleGameView extends GameView{
 
-    public SimpleGame(){
-        super();
+    public SimpleGameView(Context context){
+        super(context);
         System.out.println("简单模式，周期600ms，加血道具概率0.15，火力道具概率0.15，免疫道具概率0.15，炸弹道具概率0.1");
     }
 
@@ -37,9 +43,14 @@ public class SimpleGame extends Game{
         return enemyFactory.createEnemy();
     }
     @Override
-    public void paintBackground(Graphics g){
-        g.drawImage(ImageManager.BACKGROUND_IMAGE_SIMPLE, 0, super.getBackGroundTop() - Main.WINDOW_HEIGHT, null);
-        g.drawImage(ImageManager.BACKGROUND_IMAGE_SIMPLE, 0, super.getBackGroundTop(), null);
+    public void paintBackground(Paint mPaint, Canvas canvas){
+        //绘制滚动背景图片
+        canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE_SIMPLE, 0, backGroundTop- GameActivity.WINDOW_HEIGHT, mPaint);
+        canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE_SIMPLE, 0, backGroundTop,mPaint);
+        backGroundTop+=1;
+        if(backGroundTop == WINDOW_HEIGHT);
+        backGroundTop = 0;
+
     }
 
     @Override

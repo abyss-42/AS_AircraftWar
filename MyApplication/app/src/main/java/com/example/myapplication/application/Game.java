@@ -183,7 +183,7 @@ public abstract class Game extends SurfaceView implements SurfaceHolder.Callback
             postProcessAction();
 
             //每个时刻重绘界面
-            repaint();
+//            repaint();
 
             // 游戏结束检查
             if (heroAircraft.getHp() <= 0) {

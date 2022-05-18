@@ -1,15 +1,12 @@
 package com.example.myapplication.gui;
 
-import com.example.myapplication.application.DifficultGame;
 import com.example.myapplication.application.Main;
-import com.example.myapplication.application.NormalGame;
-import com.example.myapplication.application.SimpleGame;
 import com.example.myapplication.dao.Record;
 import com.example.myapplication.dao.RecordDaoImple;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

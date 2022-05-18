@@ -1,16 +1,17 @@
 package com.example.myapplication.application;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.myapplication.gui.Menu;
 import com.example.myapplication.gui.ScorePanel;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * 程序入口
  * @author hitsz
  */
-public class Main {
+public class Main extends AppCompatActivity {
 
     public static final int WINDOW_WIDTH = 512;
     public static final int WINDOW_HEIGHT = 768;
@@ -21,7 +22,7 @@ public class Main {
     public static String whichMode = null;
     public static int score = 0;
 
-    public static void main(String[] args) {
+    public void main(String[] args) {
 
         System.out.println("Hello Aircraft War");
 
@@ -45,13 +46,13 @@ public class Main {
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
-            Game game;
+            GameView game;
             if(whichMode == "简单模式"){
-                game = new SimpleGame();
+                game = new SimpleGameView(this);
             }else if(whichMode == "普通模式"){
-                game = new NormalGame();
+                game = new NormalGameView(this);
             }else {
-                game = new DifficultGame();
+                game = new DifficultGameView(this);
             }
             frame.remove(menu);
             frame.setContentPane(game);

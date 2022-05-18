@@ -1,5 +1,6 @@
 package com.example.myapplication.aircraft;
 
+import com.example.myapplication.application.GameView;
 import com.example.myapplication.prop.BaseProp;
 import com.example.myapplication.application.Game;
 import com.example.myapplication.application.Subscriber;
@@ -15,7 +16,7 @@ import java.util.List;
 public class Boss extends BaseEnemy implements Subscriber {
 
 //    private LoopMusicThread bossMusic = null;
-    private Game game;
+    private GameView game;
 
     public Boss(int locationX, int locationY, int speedX, int speedY, int hp, int shootNum, int power, int direction){
         super(locationX, locationY, speedX, speedY, hp, shootNum, power, direction);
@@ -25,7 +26,7 @@ public class Boss extends BaseEnemy implements Subscriber {
 //        this.bossMusic = bossMusic;
 //    }
 
-    public void setGame(Game game) {
+    public void setGame(GameView game) {
         this.game = game;
     }
 

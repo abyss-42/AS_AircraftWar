@@ -1,9 +1,15 @@
 package com.example.myapplication.application;
 
+import static com.example.myapplication.MainActivity.WINDOW_HEIGHT;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.view.SurfaceHolder;
 
 import androidx.annotation.NonNull;
 
+import com.example.myapplication.GameActivity;
 import com.example.myapplication.aircraft.BaseEnemy;
 import com.example.myapplication.aircraft.Boss;
 import com.example.myapplication.factory.*;
@@ -12,7 +18,7 @@ import com.example.myapplication.factory.*;
 import java.awt.*;
 import java.util.Random;
 
-public class DifficultGame extends Game{
+public class DifficultGameView extends GameView{
     /**
      * 对boss出现次数计数
      */
@@ -26,8 +32,8 @@ public class DifficultGame extends Game{
     private int hp = 60;
     private int power = 35;
 
-    public DifficultGame(){
-        super();
+    public DifficultGameView(Context context){
+        super(context);
         //画面中最多出现8架精英机和普通敌机
         super.setEnemyMaxNumber(8);
         super.setCycleDuration(400);
@@ -96,9 +102,14 @@ public class DifficultGame extends Game{
 
 
     @Override
-    public void paintBackground(Graphics g){
-        g.drawImage(ImageManager.BACKGROUND_IMAGE_DIFFICULT, 0, super.getBackGroundTop() - Main.WINDOW_HEIGHT, null);
-        g.drawImage(ImageManager.BACKGROUND_IMAGE_DIFFICULT, 0, super.getBackGroundTop(), null);
+    public void paintBackground(Paint mPaint, Canvas canvas){
+        //绘制滚动背景图片
+        canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE_DIFFICULT, 0, super.getBackGroundTop() - GameActivity.WINDOW_HEIGHT, mPaint);
+        canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE_DIFFICULT, 0, super.getBackGroundTop(),mPaint);
+        backGroundTop+=1;
+        if(backGroundTop == WINDOW_HEIGHT);
+        backGroundTop = 0;
+
     }
 
     @Override

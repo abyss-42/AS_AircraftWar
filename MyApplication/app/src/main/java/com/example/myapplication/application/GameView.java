@@ -116,7 +116,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 //                new BasicThreadFactory.Builder().namingPattern("game-action-%d").daemon(true).build());
 
         //启动英雄机鼠标监听
-//        new HeroController(this, heroAircraft);
+        new HeroController(this, heroAircraft);
     }
 
     public static boolean isMusicTurnOn() {

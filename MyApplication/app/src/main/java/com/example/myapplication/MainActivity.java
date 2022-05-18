@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     public static int WINDOW_WIDTH;
@@ -20,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
         WINDOW_WIDTH = dm.widthPixels;
         WINDOW_HEIGHT = dm.heightPixels;
 
+        Button start = findViewById(R.id.start);
+        Button login = findViewById(R.id.Login);
+        Button rank = findViewById(R.id.Rank);
         getSupportActionBar().hide();
     }
 

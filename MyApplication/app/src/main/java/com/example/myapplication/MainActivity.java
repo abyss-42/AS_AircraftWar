@@ -8,7 +8,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     public static int WINDOW_WIDTH;
     public static int WINDOW_HEIGHT;
 
@@ -40,5 +40,21 @@ public class MainActivity extends AppCompatActivity {
     public void ShowRankTable(View view){
 
     }
+
+//    public void onClick(View view){
+//        Intent intent;
+//        switch (view.getId()){
+//            case R.id.start:
+//                intent = new Intent(this, GameActivity.class);
+//                startActivity(intent);
+//                break;
+//            case  R.id.Login:
+//                break;
+//            case R.id.Rank:
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
 }

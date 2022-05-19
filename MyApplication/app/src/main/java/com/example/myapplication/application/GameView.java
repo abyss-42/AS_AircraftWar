@@ -15,6 +15,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.example.myapplication.GameActivity;
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.aircraft.*;
 
 import androidx.annotation.NonNull;
@@ -27,15 +28,17 @@ import com.example.myapplication.bullet.EnemyBullet;
 import com.example.myapplication.factory.BaseEnemyFactory;
 import com.example.myapplication.factory.EliteEnemyFactory;
 import com.example.myapplication.factory.MobEnemyFactory;
-import com.example.myapplication.prop.BaseProp;
-import com.example.myapplication.prop.PropBomb;
-import com.example.myapplication.prop.PropBullet;
-import com.example.myapplication.prop.PropImmune;
+import com.example.myapplication.Prop.BaseProp;
+import com.example.myapplication.Prop.PropBomb;
+import com.example.myapplication.Prop.PropBullet;
+import com.example.myapplication.Prop.PropImmune;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runnable {
     private SurfaceHolder surfaceHolder;
@@ -57,6 +60,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
      * Scheduled 线程池，用于任务调度
      */
 //    private final ScheduledExecutorService executorService;
+    private final ScheduledExecutorService scheduledExecutorService;
 
     /**
      * 时间间隔(ms)，控制刷新频率
@@ -114,6 +118,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
          */
 //        this.executorService = new ScheduledThreadPoolExecutor(1,
 //                new BasicThreadFactory.Builder().namingPattern("game-action-%d").daemon(true).build());
+        this.scheduledExecutorService = Executors.newScheduledThreadPool(1);
 
         //启动英雄机鼠标监听
         new HeroController(this, heroAircraft);
@@ -231,13 +236,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 //                    new MusicThread("src/videos/game_over.wav").start();
 //                }
 //                executorService.shutdown();
+                scheduledExecutorService.shutdown();
                 gameOverFlag = true;
                 PropBullet.setJump();
                 PropImmune.setJump();
                 System.out.println("Game Over!");
-                synchronized (Main.lock){
-                    Main.lock.notifyAll();
-                }
+//                synchronized (MainActivity.lock){
+//                    MainActivity.lock.notifyAll();
+//                }
             }
 
         };
@@ -251,6 +257,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 //            backGroundMusic = new LoopMusicThread("src/videos/bgm.wav");
 //            backGroundMusic.start();
 //        }
+        scheduledExecutorService.schedule(task,timeInterval, TimeUnit.MILLISECONDS);
 
     }
 

@@ -1,7 +1,7 @@
 package com.example.myapplication.factory;
 
-import com.example.myapplication.prop.BaseProp;
-import com.example.myapplication.prop.PropBlood;
+import com.example.myapplication.Prop.BaseProp;
+import com.example.myapplication.Prop.PropBlood;
 
 /**加血道具工厂*/
 public class PropBloodFactory implements PropFactory{

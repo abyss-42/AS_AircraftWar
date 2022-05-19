@@ -6,19 +6,7 @@ import android.graphics.BitmapFactory;
 import android.view.SurfaceView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.prop.PropImmune;
-import com.example.myapplication.aircraft.Boss;
-import com.example.myapplication.aircraft.EliteEnemy;
-import com.example.myapplication.aircraft.HeroAircraft;
-import com.example.myapplication.aircraft.MobEnemy;
-import com.example.myapplication.bullet.EnemyBullet;
-import com.example.myapplication.bullet.HeroBullet;
-import com.example.myapplication.prop.PropBlood;
-import com.example.myapplication.prop.PropBomb;
-import com.example.myapplication.prop.PropBullet;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -15,7 +15,7 @@ import com.example.myapplication.factory.BaseEnemyFactory;
 import com.example.myapplication.factory.EliteEnemyFactory;
 import com.example.myapplication.factory.MobEnemyFactory;
 
-import java.awt.*;
+
 import java.util.Random;
 
 public class SimpleGameView extends GameView{

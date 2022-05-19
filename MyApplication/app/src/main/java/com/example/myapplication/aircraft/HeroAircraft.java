@@ -1,7 +1,8 @@
 package com.example.myapplication.aircraft;
 
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.application.ImageManager;
-import com.example.myapplication.application.Main;
+//import com.example.myapplication.application.Main;
 
 import com.example.myapplication.strategy.StraightShoot;
 
@@ -46,8 +47,8 @@ public class HeroAircraft extends AbstractAircraft {
         if(heroAircraft == null){
             synchronized (HeroAircraft.class){
                 if(heroAircraft == null){
-                    heroAircraft = new HeroAircraft(Main.WINDOW_WIDTH / 2,
-                            Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
+                    heroAircraft = new HeroAircraft(MainActivity.WINDOW_WIDTH / 2,
+                            MainActivity.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
                             0, 0, 1500, 1, 30, -1);
                     heroAircraft.setShootStrategy(new StraightShoot("HeroAircraft"));
                 }

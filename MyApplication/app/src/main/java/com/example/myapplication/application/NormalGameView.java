@@ -16,7 +16,7 @@ import com.example.myapplication.factory.*;
 //import com.example.myapplication.music.LoopMusicThread;
 //import com.example.myapplication.music.MusicThread;
 
-import java.awt.*;
+
 import java.util.Random;
 
 public class NormalGameView extends GameView{

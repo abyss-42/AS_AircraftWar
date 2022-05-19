@@ -1,8 +1,9 @@
 package com.example.myapplication.aircraft;
 
 
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.Prop.BaseProp;
-import com.example.myapplication.application.Main;
+//import com.example.myapplication.application.Main;
 
 import com.example.myapplication.application.Subscriber;
 import com.example.myapplication.factory.PropBombFactory;
@@ -31,7 +32,7 @@ public class EliteEnemy extends BaseEnemy implements Subscriber {
     public void forward() {
         super.forward();
         // 判定 y 轴向下飞行出界
-        if (locationY >= Main.WINDOW_HEIGHT ) {
+        if (locationY >= MainActivity.WINDOW_HEIGHT ) {
             vanish();
         }
     }

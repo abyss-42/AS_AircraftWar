@@ -15,7 +15,7 @@ import com.example.myapplication.aircraft.Boss;
 import com.example.myapplication.factory.*;
 //import com.example.myapplication.music.LoopMusicThread;
 
-import java.awt.*;
+
 import java.util.Random;
 
 public class DifficultGameView extends GameView{

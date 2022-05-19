@@ -1,7 +1,7 @@
 package com.example.myapplication.factory;
 
-import com.example.myapplication.prop.BaseProp;
-import com.example.myapplication.prop.PropImmune;
+import com.example.myapplication.Prop.BaseProp;
+import com.example.myapplication.Prop.PropImmune;
 
 public class PropImmuneFactory implements PropFactory{
     @Override

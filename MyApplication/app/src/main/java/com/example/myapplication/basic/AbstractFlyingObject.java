@@ -1,9 +1,10 @@
 package com.example.myapplication.basic;
 import android.graphics.Bitmap;
 
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.aircraft.AbstractAircraft;
 import com.example.myapplication.application.ImageManager;
-import com.example.myapplication.application.Main;
+//import com.example.myapplication.application.Main;
 
 
 
@@ -73,7 +74,7 @@ public class AbstractFlyingObject {
     public void forward() {
         locationX += speedX;
         locationY += speedY;
-        if (locationX <= 0 || locationX >= Main.WINDOW_WIDTH) {
+        if (locationX <= 0 || locationX >= MainActivity.WINDOW_WIDTH) {
             // 横向超出边界后反向
             speedX = -speedX;
         }

@@ -1,6 +1,6 @@
 package com.example.myapplication.aircraft;
 
-import com.example.myapplication.prop.BaseProp;
+import com.example.myapplication.Prop.BaseProp;
 import com.example.myapplication.application.Subscriber;
 
 import java.util.List;

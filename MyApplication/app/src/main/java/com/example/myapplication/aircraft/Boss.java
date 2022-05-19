@@ -1,12 +1,10 @@
 package com.example.myapplication.aircraft;
 
 import com.example.myapplication.application.GameView;
-import com.example.myapplication.prop.BaseProp;
-import com.example.myapplication.application.Game;
+import com.example.myapplication.Prop.BaseProp;
 import com.example.myapplication.application.Subscriber;
 import com.example.myapplication.factory.BossRandomPropFactory;
 import com.example.myapplication.factory.PropFactory;
-import com.example.myapplication.factory.RandomPropFactory;
 //import com.example.myapplication.music.LoopMusicThread;
 
 import java.util.LinkedList;

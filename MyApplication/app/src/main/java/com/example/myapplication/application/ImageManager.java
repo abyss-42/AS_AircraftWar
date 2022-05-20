@@ -24,21 +24,22 @@ public class ImageManager extends SurfaceView {
      */
     private static final Map<String, Bitmap> CLASSNAME_IMAGE_MAP = new HashMap<>();
 
-    public static Bitmap BACKGROUND_IMAGE = BitmapFactory.decodeFile("bg.jpg");
-    public static Bitmap BACKGROUND_IMAGE_SIMPLE = BitmapFactory.decodeFile("bg2.jpg");
-    public static Bitmap BACKGROUND_IMAGE_DIFFICULT = BitmapFactory.decodeFile("bg5.jpg");
-    public static Bitmap BACKGROUND_IMAGE_NORMAL = BitmapFactory.decodeFile("bg4.jpg");
-    public static Bitmap HERO_IMAGE = BitmapFactory.decodeFile("hero.jpg");
-    public static Bitmap HERO_BULLET_IMAGE = BitmapFactory.decodeFile("bullet_hero.jpg");
-    public static Bitmap ENEMY_BULLET_IMAGE = BitmapFactory.decodeFile("bullet_enemy.jpg");
-    public static Bitmap MOB_ENEMY_IMAGE = BitmapFactory.decodeFile("mob.jpg");
-    public static Bitmap ELITE_ENEMY_IMAGE = BitmapFactory.decodeFile("elite.jpg");
-    public static Bitmap BOSS_IMAGE = BitmapFactory.decodeFile("boss.jpg");
-    public static Bitmap PROP_BLOOD_IMAGE = BitmapFactory.decodeFile("prop_blood.jpg");
-    public static Bitmap PROP_BOMB_IMAGE = BitmapFactory.decodeFile("prop_bomb.jpg");
-    public static Bitmap PROP_BULLET_IMAGE = BitmapFactory.decodeFile("prop_bullet.jpg");
-    public static Bitmap PROP_IMMUNE_IMAGE = BitmapFactory.decodeFile("prop_immune.jpg");
+    public static Bitmap BACKGROUND_IMAGE;
+    public static Bitmap BACKGROUND_IMAGE_SIMPLE;
+    public static Bitmap BACKGROUND_IMAGE_DIFFICULT;
+    public static Bitmap BACKGROUND_IMAGE_NORMAL;
+    public static Bitmap HERO_IMAGE;
+    public static Bitmap HERO_BULLET_IMAGE;
+    public static Bitmap ENEMY_BULLET_IMAGE;
+    public static Bitmap MOB_ENEMY_IMAGE;
+    public static Bitmap ELITE_ENEMY_IMAGE;
+    public static Bitmap BOSS_IMAGE;
+    public static Bitmap PROP_BLOOD_IMAGE;
+    public static Bitmap PROP_BOMB_IMAGE;
+    public static Bitmap PROP_BULLET_IMAGE;
+    public static Bitmap PROP_IMMUNE_IMAGE;
 
+    //不用decodeFile，因为参数直接传路径的话会被认为不安全，抛出异常FileNotFoundException
 
     public ImageManager(Context context) {
         super(context);

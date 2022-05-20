@@ -51,6 +51,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 
     /**判断boss是否已经出现*/
     protected boolean bossFlag = false;
+    protected boolean isGameOverFlag;
 
     protected int timeCycleCount = 0;
 
@@ -181,10 +182,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
      * 游戏启动入口，执行游戏逻辑
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public final void action() {
+    public final void action() throws InterruptedException{
 
         // 定时任务：绘制、对象产生、碰撞判定、击毁及结束判定
         Runnable task = () -> {
+            System.out.println("In Runnable Task~~~~~~~~~~~~~~~");
 
             time += timeInterval;
 
@@ -257,7 +259,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 //            backGroundMusic = new LoopMusicThread("src/videos/bgm.wav");
 //            backGroundMusic.start();
 //        }
-        scheduledExecutorService.schedule(task,timeInterval, TimeUnit.MILLISECONDS);
+        scheduledExecutorService.scheduleWithFixedDelay(task, timeInterval, timeInterval, TimeUnit.MILLISECONDS);
+
 
     }
 
@@ -442,6 +445,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
         new Thread(this).start();
+        System.out.println("In SurfaceCreated func~~~~~~~~~~~~");
+        isGameOverFlag = false;
     }
 
     @Override
@@ -451,13 +456,24 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
-
+        isGameOverFlag = true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void run() {
-        while (true){
-            draw();
+    public void run(){
+        System.out.println("In Run func11111111~~~~~~~~~~~~");
+        while(!isGameOverFlag) {
+            System.out.println("In Run func22222222222~~~~~~~~~~~~");
+            synchronized (surfaceHolder) {
+                try {
+                    System.out.println("Draw on~~~~~~~~~~~~~~~~~~~");
+                    action();
+                    draw();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
     //***********************

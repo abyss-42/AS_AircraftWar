@@ -1,5 +1,5 @@
-package com.example.myapplication.application;
-
+//package com.example.myapplication.application;
+//
 //import android.content.Context;
 //import android.view.MotionEvent;
 //import android.view.SurfaceHolder;

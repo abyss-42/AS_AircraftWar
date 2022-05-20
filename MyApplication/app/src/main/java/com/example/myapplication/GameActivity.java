@@ -37,7 +37,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         hard.setOnClickListener(this);
         //setContent用于添加界面，就是画不同难度的界面
         //后续添加Easy， Hard，Normal
-        setContentView(new GameView(this));
+//        setContentView(new GameView(this));
         getSupportActionBar().hide();
     }
     @Override
@@ -45,20 +45,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
         switch (view.getId()){
             case R.id.easy:
-                intent = new Intent(this, SimpleGameView.class);
-                startActivity(intent);
+                setContentView(new SimpleGameView(this));
                 break;
             case R.id.normal:
-                intent = new Intent(this, NormalGameView.class);
-                startActivity(intent);
+                setContentView(new NormalGameView(this));
                 break;
             case R.id.hard:
-                intent = new Intent(this, DifficultGameView.class);
-                startActivity(intent);
+                setContentView(new DifficultGameView(this));
                 break;
             default:
-                intent = new Intent(this, GameView.class);
-                startActivity(intent);
+                setContentView(new GameView(this));
                 break;
         }
     }

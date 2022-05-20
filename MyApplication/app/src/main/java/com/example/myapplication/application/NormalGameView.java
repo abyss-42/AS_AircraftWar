@@ -106,7 +106,7 @@ public class NormalGameView extends GameView{
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
-
+        new Thread(this).start();
     }
 
     @Override
@@ -121,6 +121,8 @@ public class NormalGameView extends GameView{
 
     @Override
     public void run() {
-
+        while (true){
+            draw();
+        }
     }
 }

@@ -104,25 +104,25 @@ public class NormalGameView extends GameView{
 
     }
 
-    @Override
-    public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
-        new Thread(this).start();
-    }
-
-    @Override
-    public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
-
-    }
-
-    @Override
-    public void run() {
-        while (true){
-            draw();
-        }
-    }
+//    @Override
+//    public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
+//        new Thread(this).start();
+//    }
+//
+//    @Override
+//    public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
+//
+//    }
+//
+//    @Override
+//    public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
+//
+//    }
+//
+//    @Override
+//    public void run() {
+//        while (true){
+//            draw();
+//        }
+//    }
 }

@@ -238,7 +238,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 //                    new MusicThread("src/videos/game_over.wav").start();
 //                }
 //                executorService.shutdown();
-                scheduledExecutorService.shutdown();
+//                scheduledExecutorService.shutdown();
                 gameOverFlag = true;
                 PropBullet.setJump();
                 PropImmune.setJump();
@@ -259,8 +259,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 //            backGroundMusic = new LoopMusicThread("src/videos/bgm.wav");
 //            backGroundMusic.start();
 //        }
-        scheduledExecutorService.scheduleWithFixedDelay(task, timeInterval, timeInterval, TimeUnit.MILLISECONDS);
+//        scheduledExecutorService.scheduleWithFixedDelay(task, timeInterval, timeInterval, TimeUnit.MILLISECONDS);
+            Thread thread = new Thread(task);
+            thread.start();
 
+            Thread.sleep(timeInterval);
 
     }
 
@@ -482,6 +485,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 
     public void paintBackground(Paint mPaint, Canvas canvas){
         //绘制滚动背景图片
+        System.out.println("Draw on~~~~~~~~~~~~~~~~~~~");
         canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE, 0, backGroundTop-GameActivity.WINDOW_HEIGHT, mPaint);
         canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE, 0, backGroundTop,mPaint);
         backGroundTop+=1;
@@ -499,7 +503,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
             return;
         }
         paintBackground(mPaint, canvas);
-
+        System.out.println("In Draw func~~~~~~~~~~~~~~~~~~~");
         // 先绘制子弹，后绘制飞机
         // 这样子弹显示在飞机的下层
         paintImageWithPositionRevised(mPaint, enemyBullets);

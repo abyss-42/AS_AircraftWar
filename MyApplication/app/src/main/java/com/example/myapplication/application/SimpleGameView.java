@@ -19,7 +19,7 @@ import com.example.myapplication.factory.MobEnemyFactory;
 import java.util.Random;
 
 public class SimpleGameView extends GameView{
-
+    private SurfaceHolder surfaceHolder = getHolder();
     public SimpleGameView(Context context){
         super(context);
         System.out.println("简单模式，周期600ms，加血道具概率0.15，火力道具概率0.15，免疫道具概率0.15，炸弹道具概率0.1");
@@ -53,25 +53,35 @@ public class SimpleGameView extends GameView{
 
     }
 
-    @Override
-    public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
-        new Thread(this).start();
-    }
+//    @Override
+//    public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
+//        new Thread(this).start();
+//    }
+//
+//    @Override
+//    public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
+//
+//    }
+//
+//    @Override
+//    public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
+//
+//    }
 
-    @Override
-    public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
-
-    }
-
-    @Override
-    public void run() {
-        while (true){
-            draw();
-        }
-    }
+//    @Override
+//    public void run() {
+//        System.out.println("In Run func11111111~~~~~~~~~~~~");
+//        while(!isGameOverFlag) {
+//            System.out.println("In Run func22222222222~~~~~~~~~~~~");
+//            synchronized (surfaceHolder) {
+//                try {
+//                    System.out.println("Draw on~~~~~~~~~~~~~~~~~~~");
+//                    action();
+//                    draw();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
 }

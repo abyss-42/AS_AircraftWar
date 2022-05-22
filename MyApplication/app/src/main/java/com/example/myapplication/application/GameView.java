@@ -388,10 +388,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
                     }
                 }
                 // 英雄机 与 敌机 相撞，均损毁
-                if (enemyAircraft.crash(heroAircraft) || heroAircraft.crash(enemyAircraft)) {
-                    enemyAircraft.vanish();
-                    heroAircraft.decreaseHp(Integer.MAX_VALUE);
-                }
+//                if (enemyAircraft.crash(heroAircraft) || heroAircraft.crash(enemyAircraft)) {
+//                    enemyAircraft.vanish();
+//                    heroAircraft.decreaseHp(Integer.MAX_VALUE);
+//                }
             }
         }
 
@@ -509,7 +509,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 
         paintBackground(mPaint, canvas);
         backGroundTop+=5;
-        if(backGroundTop == MainActivity.WINDOW_HEIGHT){
+        if(backGroundTop >= MainActivity.WINDOW_HEIGHT){
             backGroundTop = 0;
         }
         System.out.println("In Draw func~~~~~~~~~~~~~~~~~~~");

@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runnable {
@@ -119,9 +120,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
          */
 //        this.executorService = new ScheduledThreadPoolExecutor(1,
 //                new BasicThreadFactory.Builder().namingPattern("game-action-%d").daemon(true).build());
-        this.scheduledExecutorService = Executors.newScheduledThreadPool(1);
+//        this.scheduledExecutorService = Executors.newScheduledThreadPool(1, new BasicThreadFactory.DefaultThreadBuilder().namingPattern("game-action-%d").daemon(true).build());
+        this.scheduledExecutorService = new ScheduledThreadPoolExecutor(1);
 
         //启动英雄机鼠标监听
+        System.out.println("hero");
         new HeroController(this, heroAircraft);
     }
 
@@ -224,7 +227,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 
             //每个时刻重绘界面
 //            repaint();
-
+            draw();
             // 游戏结束检查
             if (heroAircraft.getHp() <= 0) {
                 // 游戏结束
@@ -238,7 +241,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 //                    new MusicThread("src/videos/game_over.wav").start();
 //                }
 //                executorService.shutdown();
-//                scheduledExecutorService.shutdown();
+                scheduledExecutorService.shutdown();
                 gameOverFlag = true;
                 PropBullet.setJump();
                 PropImmune.setJump();
@@ -259,11 +262,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 //            backGroundMusic = new LoopMusicThread("src/videos/bgm.wav");
 //            backGroundMusic.start();
 //        }
-//        scheduledExecutorService.scheduleWithFixedDelay(task, timeInterval, timeInterval, TimeUnit.MILLISECONDS);
-            Thread thread = new Thread(task);
-            thread.start();
-
-            Thread.sleep(timeInterval);
+        scheduledExecutorService.scheduleWithFixedDelay(task, timeInterval, timeInterval, TimeUnit.MILLISECONDS);
+//            Thread thread = new Thread(task);
+//            thread.start();
+//
+//            Thread.sleep(timeInterval);
 
     }
 
@@ -466,18 +469,23 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
     @Override
     public void run(){
         System.out.println("In Run func11111111~~~~~~~~~~~~");
-        while(!isGameOverFlag) {
-            System.out.println("In Run func22222222222~~~~~~~~~~~~");
-            synchronized (surfaceHolder) {
-                try {
-                    System.out.println("Draw on~~~~~~~~~~~~~~~~~~~");
-                    action();
-                    draw();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+        try {
+            action();
+        }catch (InterruptedException e){
+            e.printStackTrace();
         }
+//        while(!isGameOverFlag) {
+//            System.out.println("In Run func22222222222~~~~~~~~~~~~");
+//            synchronized (surfaceHolder) {
+//                try {
+//                    System.out.println("Draw on~~~~~~~~~~~~~~~~~~~");
+//                    action();
+//                    draw();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
     }
     //***********************
     //      Paint 各部分
@@ -502,6 +510,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
         if(surfaceHolder == null || canvas == null){
             return;
         }
+
         paintBackground(mPaint, canvas);
         System.out.println("In Draw func~~~~~~~~~~~~~~~~~~~");
         // 先绘制子弹，后绘制飞机
@@ -510,6 +519,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
         paintImageWithPositionRevised(mPaint, heroBullets);
         paintImageWithPositionRevised(mPaint, props);
         paintImageWithPositionRevised(mPaint, enemyAircrafts);
+        System.out.println("draw plane~~~~~~~~~~~~~~~~~~~");
 
         //绘制英雄机
         canvas.drawBitmap(ImageManager.HERO_IMAGE, heroAircraft.getLocationX() - ImageManager.HERO_IMAGE.getWidth() / 2, heroAircraft.getLocationY() - ImageManager.HERO_IMAGE.getHeight() / 2, mPaint);

@@ -30,11 +30,11 @@ public class RankActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rank);
         listView = findViewById(R.id.rankList);
         if(GameActivity.whichMode == "simple"){
-            recordDaoImple = new RecordDaoImple("easy.txt");
+            recordDaoImple = new RecordDaoImple("easy.txt",this);
         }else if(GameActivity.whichMode == "normal"){
-            recordDaoImple = new RecordDaoImple("normal.txt");
+            recordDaoImple = new RecordDaoImple("normal.txt",this);
         }else{
-            recordDaoImple = new RecordDaoImple("hard.txt");
+            recordDaoImple = new RecordDaoImple("hard.txt",this);
         }
         DisplayMetrics dm = getResources().getDisplayMetrics();
         WINDOW_WIDTH = dm.widthPixels;

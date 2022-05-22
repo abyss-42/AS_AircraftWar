@@ -1,5 +1,7 @@
 package com.example.myapplication.dao;
 
+import android.content.Context;
+
 import java.io.*;
 import java.util.Collections;
 import java.util.List;
@@ -8,8 +10,10 @@ import java.util.ArrayList;
 public class RecordDaoImple implements RecordDao {
     private List<Record> records = new ArrayList<Record>();
     private File file;
-    public RecordDaoImple(String name){
-        file = new File(name);
+    private Context context;
+    public RecordDaoImple(String name, Context context){
+        this.context = context;
+        file = new File(context.getFilesDir(),name);
         if(!file.exists()){
             try {
                 file.createNewFile();

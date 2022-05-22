@@ -32,7 +32,7 @@ public class NormalGameView extends GameView{
         super(context);
         //画面中最多出现6架精英机和普通敌机
         super.setEnemyMaxNumber(6);
-        super.setCycleDuration(100);
+        super.setCycleDuration(130);
         //设置道具掉落概率
         RandomPropFactory.setBloodPossibility(0.1f);
         RandomPropFactory.setBulletPossibility(0.1f);
@@ -50,15 +50,15 @@ public class NormalGameView extends GameView{
         BaseEnemyFactory enemyFactory;
         whichProp=propR.nextFloat();
         //每过了50个周期提升一次精英机概率
-        if(whichProp<=elitePossibility+timeCycleCount/100*0.01f){
+        if(whichProp<=elitePossibility+timeCycleCount/50*0.01f){
             enemyFactory = new EliteEnemyFactory();
         }else{
             enemyFactory = new MobEnemyFactory();
         }
-        enemyFactory.setHp(hp+timeCycleCount/100);
-        enemyFactory.setPower(power+timeCycleCount/100);
-        if(timeCycleCount%100==0 && timeCycleCount!=0){
-            System.out.printf("难度提升！精英机出现概率：%.2f,除了boss的敌机血量：%d,敌机子弹攻击力：%d\n",elitePossibility+timeCycleCount/100*0.01f,hp+timeCycleCount/100,power+timeCycleCount/100);
+        enemyFactory.setHp(hp+timeCycleCount/50);
+        enemyFactory.setPower(power+timeCycleCount/50);
+        if(timeCycleCount%50==0 && timeCycleCount!=0){
+            System.out.printf("难度提升！精英机出现概率：%.2f,除了boss的敌机血量：%d,敌机子弹攻击力：%d\n",elitePossibility+timeCycleCount/50*0.01f,hp+timeCycleCount/50,power+timeCycleCount/50);
         }
         return enemyFactory.createEnemy();
     }
@@ -69,7 +69,7 @@ public class NormalGameView extends GameView{
         if(!bossFlag &&( (score%300==0 && score != 0)||score-lastScore>=300)){
             lastScore = score;
             BaseEnemyFactory enemyFactory = new BossFactory();
-            enemyFactory.setPower(power+timeCycleCount/100);
+            enemyFactory.setPower(power+timeCycleCount/50);
             enemyFactory.setHp(200);
             BaseEnemy boss = enemyFactory.createEnemy();
             ((Boss)boss).setGame(this);

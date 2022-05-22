@@ -124,7 +124,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
         this.scheduledExecutorService = new ScheduledThreadPoolExecutor(1);
 
         //启动英雄机鼠标监听
-        System.out.println("hero");
         new HeroController(this, heroAircraft);
     }
 
@@ -189,13 +188,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 
         // 定时任务：绘制、对象产生、碰撞判定、击毁及结束判定
         Runnable task = () -> {
-            System.out.println("In Runnable Task~~~~~~~~~~~~~~~");
 
             time += timeInterval;
 
             // 周期性执行（控制频率）
             if (timeCountAndNewCycleJudge()) {
                 System.out.println(time);
+                System.out.println(timeCycleCount);
                 // 新敌机产生
                 if (enemyAircrafts.size() < enemyMaxNumber) {
                     enemyAircrafts.add(createEnemy());
@@ -451,7 +450,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
         new Thread(this).start();
-        System.out.println("In SurfaceCreated func~~~~~~~~~~~~");
         isGameOverFlag = false;
     }
 
@@ -468,7 +466,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void run(){
-        System.out.println("In Run func11111111~~~~~~~~~~~~");
         try {
             action();
         }catch (InterruptedException e){
@@ -493,7 +490,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 
     public void paintBackground(Paint mPaint, Canvas canvas){
         //绘制滚动背景图片
-        System.out.println("Draw on~~~~~~~~~~~~~~~~~~~");
         canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE, 0, backGroundTop-GameActivity.WINDOW_HEIGHT, mPaint);
         canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE, 0, backGroundTop,mPaint);
     }
@@ -512,7 +508,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
         if(backGroundTop >= MainActivity.WINDOW_HEIGHT){
             backGroundTop = 0;
         }
-        System.out.println("In Draw func~~~~~~~~~~~~~~~~~~~");
         // 先绘制子弹，后绘制飞机
         // 这样子弹显示在飞机的下层
         paintImageWithPositionRevised(mPaint, enemyBullets);

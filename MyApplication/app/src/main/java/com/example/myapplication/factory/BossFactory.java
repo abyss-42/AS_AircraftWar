@@ -14,7 +14,7 @@ public class BossFactory extends BaseEnemyFactory{
     public BaseEnemy createEnemy(){
         BaseEnemy boss = new Boss((int) ( Math.random() * (MainActivity.WINDOW_WIDTH - ImageManager.BOSS_IMAGE.getWidth()))*1,
                 (int) (ImageManager.BOSS_IMAGE.getHeight()/2)*1,
-                3,
+                5,
                 0,
                  hp,
                 3,

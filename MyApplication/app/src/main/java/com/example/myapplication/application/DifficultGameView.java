@@ -36,7 +36,7 @@ public class DifficultGameView extends GameView{
         super(context);
         //画面中最多出现8架精英机和普通敌机
         super.setEnemyMaxNumber(8);
-        super.setCycleDuration(80);
+        super.setCycleDuration(110);
         //设置道具掉落概率
         RandomPropFactory.setBloodPossibility(0.07f);
         RandomPropFactory.setBulletPossibility(0.07f);
@@ -106,9 +106,6 @@ public class DifficultGameView extends GameView{
         //绘制滚动背景图片
         canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE_DIFFICULT, 0, super.getBackGroundTop() - GameActivity.WINDOW_HEIGHT, mPaint);
         canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE_DIFFICULT, 0, super.getBackGroundTop(),mPaint);
-        backGroundTop+=1;
-        if(backGroundTop == WINDOW_HEIGHT);
-        backGroundTop = 0;
 
     }
 

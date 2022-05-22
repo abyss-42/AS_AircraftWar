@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.myapplication.dao.Record;
 import com.example.myapplication.dao.RecordDaoImple;
@@ -29,12 +30,16 @@ public class RankActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank);
         listView = findViewById(R.id.rankList);
+        TextView title = findViewById(R.id.rank_title);
         if(GameActivity.whichMode == "simple"){
             recordDaoImple = new RecordDaoImple("easy.txt",this);
+            title.setText("Easy Rank");
         }else if(GameActivity.whichMode == "normal"){
             recordDaoImple = new RecordDaoImple("normal.txt",this);
+            title.setText("Normal Rank");
         }else{
             recordDaoImple = new RecordDaoImple("hard.txt",this);
+            title.setText("Hard Rank");
         }
         DisplayMetrics dm = getResources().getDisplayMetrics();
         WINDOW_WIDTH = dm.widthPixels;

@@ -43,8 +43,13 @@ public class Record implements Serializable,Comparable<Record> {
     }
 
     public String getDate() {
-        return date;
+        String minuteString = String.valueOf(minute);
+        if(minute<10){
+            minuteString = "0"+minuteString;
+        }
+        return date+" "+hour+":"+minuteString;
     }
+
 
    @Override
     public int compareTo(Record o){

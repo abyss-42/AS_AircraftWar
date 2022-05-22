@@ -496,10 +496,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
         System.out.println("Draw on~~~~~~~~~~~~~~~~~~~");
         canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE, 0, backGroundTop-GameActivity.WINDOW_HEIGHT, mPaint);
         canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE, 0, backGroundTop,mPaint);
-        backGroundTop+=1;
-        if(backGroundTop == WINDOW_HEIGHT);
-            backGroundTop = 0;
-
     }
 
     public void draw(){
@@ -512,6 +508,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
         }
 
         paintBackground(mPaint, canvas);
+        backGroundTop+=5;
+        if(backGroundTop == MainActivity.WINDOW_HEIGHT){
+            backGroundTop = 0;
+        }
         System.out.println("In Draw func~~~~~~~~~~~~~~~~~~~");
         // 先绘制子弹，后绘制飞机
         // 这样子弹显示在飞机的下层
@@ -519,7 +519,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
         paintImageWithPositionRevised(mPaint, heroBullets);
         paintImageWithPositionRevised(mPaint, props);
         paintImageWithPositionRevised(mPaint, enemyAircrafts);
-        System.out.println("draw plane~~~~~~~~~~~~~~~~~~~");
 
         //绘制英雄机
         canvas.drawBitmap(ImageManager.HERO_IMAGE, heroAircraft.getLocationX() - ImageManager.HERO_IMAGE.getWidth() / 2, heroAircraft.getLocationY() - ImageManager.HERO_IMAGE.getHeight() / 2, mPaint);

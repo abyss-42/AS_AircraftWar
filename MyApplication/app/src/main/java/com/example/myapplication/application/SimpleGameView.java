@@ -47,9 +47,6 @@ public class SimpleGameView extends GameView{
         //绘制滚动背景图片
         canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE_SIMPLE, 0, backGroundTop- GameActivity.WINDOW_HEIGHT, mPaint);
         canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE_SIMPLE, 0, backGroundTop,mPaint);
-        backGroundTop+=1;
-        if(backGroundTop == WINDOW_HEIGHT);
-        backGroundTop = 0;
 
     }
 

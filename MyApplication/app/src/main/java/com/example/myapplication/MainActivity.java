@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity{
         DisplayMetrics dm = getResources().getDisplayMetrics();
         WINDOW_WIDTH = dm.widthPixels;
         WINDOW_HEIGHT = dm.heightPixels;
-
         Button start = findViewById(R.id.start);
         Button login = findViewById(R.id.Login);
         Button rank = findViewById(R.id.Rank);

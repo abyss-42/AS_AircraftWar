@@ -9,6 +9,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -49,7 +51,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
     protected int backGroundTop = 0;
     private ImageManager imageManager;
 
-
+    protected MediaPlayer bgm = MediaPlayer.create(this.getContext(), R.raw.bgm);;
+    protected MediaPlayer boss_bgm;
     /**判断boss是否已经出现*/
     protected boolean bossFlag = false;
     protected boolean isGameOverFlag;
@@ -112,6 +115,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
         heroBullets = new LinkedList<>();
         enemyBullets = new LinkedList<>();
         props = new LinkedList<>();
+
+        if(musicTurnOn){
+            bgm_music_on();
+        }
 
         /**
          * Scheduled 线程池，用于定时任务调度
@@ -190,6 +197,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
         Runnable task = () -> {
 
             time += timeInterval;
+            //打开背景音乐
 
             // 周期性执行（控制频率）
             if (timeCountAndNewCycleJudge()) {
@@ -231,15 +239,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
             if (heroAircraft.getHp() <= 0) {
                 // 游戏结束
                 //关闭背景音乐、如果敌机存在，关闭敌机音乐
-//                if(musicTurnOn){
-//                    backGroundMusic.setJump();
-//                    backGroundMusic.setStop();
-//                    if(bossFlag){
-//                        closeBossMusic();
-//                    }
-//                    new MusicThread("src/videos/game_over.wav").start();
-//                }
-//                executorService.shutdown();
+                if(musicTurnOn){
+                    bgm.release();
+                    bgm = null;
+                    if(bossFlag){
+                        closeBossMusic();
+                    }
+                }
                 scheduledExecutorService.shutdown();
                 gameOverFlag = true;
                 PropBullet.setJump();
@@ -371,6 +377,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 //                    if(musicTurnOn){
 //                        new MusicThread("src/videos/bullet_hit.wav").start();
 //                    }
+                    if(musicTurnOn){
+                        music_on(R.raw.bullet_hit);
+                    }
                     enemyAircraft.decreaseHp(bullet.getPower());
                     bullet.vanish();
                     if (enemyAircraft.notValid()) {
@@ -558,4 +567,19 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
         return true;
     }
 
+    public void bgm_music_on(){
+        Runnable bgm_task = ()->{
+            System.out.println("Music on");
+            this.bgm = MediaPlayer.create(this.getContext(), R.raw.bgm);
+            bgm.setLooping(true);
+            bgm.start();
+        };
+
+        new Thread(bgm_task).run();
+    }
+    public void music_on(int resid){
+        MediaPlayer mp = MediaPlayer.create(getContext(),resid);
+        mp.start();
+        mp.setOnCompletionListener(mediaPlayer -> mp.release());
+    }
 }

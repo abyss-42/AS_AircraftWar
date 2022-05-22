@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+
+import com.example.myapplication.application.GameView;
 
 public class MainActivity extends AppCompatActivity{
     public static int WINDOW_WIDTH;
@@ -38,6 +41,18 @@ public class MainActivity extends AppCompatActivity{
 
     public void ShowRankTable(View view){
 
+    }
+
+    public void onCheckboxClicked(View view){
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        if(checked){
+            GameView.setMusic();
+        }
+        else{
+            GameView.closeMusic();
+        }
     }
 
 //    public void onClick(View view){

@@ -32,7 +32,7 @@ public class NormalGameView extends GameView{
         super(context);
         //画面中最多出现6架精英机和普通敌机
         super.setEnemyMaxNumber(6);
-        super.setCycleDuration(500);
+        super.setCycleDuration(100);
         //设置道具掉落概率
         RandomPropFactory.setBloodPossibility(0.1f);
         RandomPropFactory.setBulletPossibility(0.1f);

@@ -11,7 +11,7 @@ public class MobEnemyFactory extends BaseEnemyFactory{
         return new MobEnemy((int) ( Math.random() * (MainActivity.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth()))*1,
                 (int) (Math.random() * MainActivity.WINDOW_HEIGHT * 0.2)*1,
                 0,
-                5,
+                18,
                 hp, 0, power, 0);
     }
 }

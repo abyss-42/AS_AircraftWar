@@ -67,7 +67,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
     /**
      * 时间间隔(ms)，控制刷新频率
      */
-    private int timeInterval = 40;
+    private int timeInterval = 10;
 
     private final HeroAircraft heroAircraft;
     private final List<BaseEnemy> enemyAircrafts;
@@ -85,9 +85,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
      * 指示子弹的发射、敌机的产生频率
      * 英雄机子弹发射频率与敌机不一样
      */
-    private int cycleDuration = 600;
+    private int cycleDuration = 150;
     private int cycleTime = 0;
-    private int heroAircraftShootCycle = 400;
+    private int heroAircraftShootCycle = 150;
     private int heroCycleTime = 0;
     /**
      * 决定是否开启音效

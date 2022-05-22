@@ -36,7 +36,7 @@ public class DifficultGameView extends GameView{
         super(context);
         //画面中最多出现8架精英机和普通敌机
         super.setEnemyMaxNumber(8);
-        super.setCycleDuration(400);
+        super.setCycleDuration(80);
         //设置道具掉落概率
         RandomPropFactory.setBloodPossibility(0.07f);
         RandomPropFactory.setBulletPossibility(0.07f);

@@ -24,7 +24,7 @@ public class StraightShoot implements ShootStrategy{
         int x = aircraft.getLocationX();
         int y = aircraft.getLocationY() + aircraft.getDirection()*2;
         int bulletSpeedX = 0;
-        int bulletSpeedY = aircraft.getSpeedY() + aircraft.getDirection()*3;
+        int bulletSpeedY = aircraft.getSpeedY() + aircraft.getDirection()*10;
         BaseBullet abstractBullet;
         for(int i=0; i<aircraft.getShootNum(); i++){
             // 子弹发射位置相对飞机位置向前偏移

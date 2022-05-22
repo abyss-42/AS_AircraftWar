@@ -545,14 +545,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 
     private void paintScoreAndLife(Paint mPaint) {
         int x = 10;
-        int y = 25;
+        int y = 60;
         mPaint.setColor(Color.WHITE);
-        mPaint.setTextSize(22);
+        mPaint.setTextSize(80);
         mPaint.setTypeface(Typeface.SANS_SERIF);
         mPaint.setFakeBoldText(true);
 //        mPaint.setFont(new Font("SansSerif", Font.BOLD, 22));
         canvas.drawText("SCORE:" + this.score, x, y, mPaint);
-        y = y + 20;
+        y = y + 80;
         canvas.drawText("LIFE:" + this.heroAircraft.getHp(), x, y, mPaint);
     }
     public int getBackGroundTop() {

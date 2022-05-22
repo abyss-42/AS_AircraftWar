@@ -5,7 +5,17 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.SurfaceView;
 
+import com.example.myapplication.Prop.PropBlood;
+import com.example.myapplication.Prop.PropBomb;
+import com.example.myapplication.Prop.PropBullet;
+import com.example.myapplication.Prop.PropImmune;
 import com.example.myapplication.R;
+import com.example.myapplication.aircraft.Boss;
+import com.example.myapplication.aircraft.EliteEnemy;
+import com.example.myapplication.aircraft.HeroAircraft;
+import com.example.myapplication.aircraft.MobEnemy;
+import com.example.myapplication.bullet.EnemyBullet;
+import com.example.myapplication.bullet.HeroBullet;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,16 +57,32 @@ public class ImageManager extends SurfaceView {
         BACKGROUND_IMAGE_SIMPLE = BitmapFactory.decodeResource(context.getResources(), R.drawable.bg2);
         BACKGROUND_IMAGE_DIFFICULT = BitmapFactory.decodeResource(context.getResources(), R.drawable.bg5);
         BACKGROUND_IMAGE_NORMAL = BitmapFactory.decodeResource(context.getResources(), R.drawable.bg4);
+
         HERO_IMAGE = BitmapFactory.decodeResource(context.getResources(), R.drawable.hero);
         MOB_ENEMY_IMAGE = BitmapFactory.decodeResource(context.getResources(), R.drawable.mob);
         HERO_BULLET_IMAGE = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet_hero);
         ENEMY_BULLET_IMAGE = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet_enemy);
+
         ELITE_ENEMY_IMAGE = BitmapFactory.decodeResource(context.getResources(), R.drawable.elite);
         BOSS_IMAGE = BitmapFactory.decodeResource(context.getResources(), R.drawable.boss);
         PROP_BLOOD_IMAGE = BitmapFactory.decodeResource(context.getResources(), R.drawable.prop_blood);
         PROP_BOMB_IMAGE = BitmapFactory.decodeResource(context.getResources(), R.drawable.prop_bomb);
         PROP_BULLET_IMAGE = BitmapFactory.decodeResource(context.getResources(), R.drawable.prop_bullet);
         PROP_IMMUNE_IMAGE = BitmapFactory.decodeResource(context.getResources(), R.drawable.prop_immune);
+
+        CLASSNAME_IMAGE_MAP.put(HeroAircraft.class.getName(), HERO_IMAGE);
+        CLASSNAME_IMAGE_MAP.put(MobEnemy.class.getName(), MOB_ENEMY_IMAGE);
+        CLASSNAME_IMAGE_MAP.put(HeroBullet.class.getName(), HERO_BULLET_IMAGE);
+        CLASSNAME_IMAGE_MAP.put(EnemyBullet.class.getName(), ENEMY_BULLET_IMAGE);
+
+        CLASSNAME_IMAGE_MAP.put(EliteEnemy.class.getName(), ELITE_ENEMY_IMAGE);
+        CLASSNAME_IMAGE_MAP.put(Boss.class.getName(), BOSS_IMAGE);
+        CLASSNAME_IMAGE_MAP.put(PropBlood.class.getName(), PROP_BLOOD_IMAGE);
+        CLASSNAME_IMAGE_MAP.put(PropBomb.class.getName(), PROP_BOMB_IMAGE);
+        CLASSNAME_IMAGE_MAP.put(PropBullet.class.getName(), PROP_BULLET_IMAGE);
+        CLASSNAME_IMAGE_MAP.put(PropImmune.class.getName(), PROP_IMMUNE_IMAGE);
+
+
     }
 
     public static Bitmap get(String className){

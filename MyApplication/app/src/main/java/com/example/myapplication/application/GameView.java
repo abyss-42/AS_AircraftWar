@@ -3,6 +3,7 @@ package com.example.myapplication.application;
 import static com.example.myapplication.MainActivity.WINDOW_HEIGHT;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -18,6 +19,7 @@ import android.view.SurfaceView;
 
 import com.example.myapplication.GameActivity;
 import com.example.myapplication.MainActivity;
+import com.example.myapplication.RankActivity;
 import com.example.myapplication.aircraft.*;
 
 import androidx.annotation.NonNull;
@@ -50,6 +52,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
     private Paint mPaint;
     protected int backGroundTop = 0;
     private ImageManager imageManager;
+    private Context context;
+
 
     protected MediaPlayer bgm = MediaPlayer.create(this.getContext(), R.raw.bgm);
     protected MediaPlayer boss_bgm = MediaPlayer.create(this.getContext(), R.raw.bgm_boss);;
@@ -101,6 +105,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 
     public GameView(Context context) {
         super(context);
+        this.context = context;
         imageManager = new ImageManager(context);
         //获取图片
         bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.bg);
@@ -257,9 +262,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
                 PropBullet.setJump();
                 PropImmune.setJump();
                 System.out.println("Game Over!");
-//                synchronized (MainActivity.lock){
-//                    MainActivity.lock.notifyAll();
-//                }
+                Intent intent = new Intent(context,RankActivity.class);
+                context.startActivity(intent);
             }
 
         };

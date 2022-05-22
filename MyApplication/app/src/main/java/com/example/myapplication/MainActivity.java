@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void ShowRankTable(View view){
-
+//        Intent intent = new Intent(this,RankActivity.class);
+//        startActivity(intent);
     }
 
     public void onCheckboxClicked(View view){

@@ -1,5 +1,9 @@
 package com.example.myapplication.dao;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,7 +17,8 @@ public class Record implements Serializable,Comparable<Record> {
     private int score,hour,minute;
     private String date;
 
-    public Record(String name,int score){
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Record(String name, int score){
         this.name = name;
         this.score = score;
         date = LocalDate.now().toString();
@@ -25,16 +30,16 @@ public class Record implements Serializable,Comparable<Record> {
         return this.name;
     }
 
-    public int getHour(){
-        return this.hour;
+    public String getHour(){
+        return String.valueOf(this.hour);
     }
 
-    public int getScore() {
-        return score;
+    public String getScore() {
+        return String.valueOf(score);
     }
 
-    public int getMinute() {
-        return minute;
+    public String getMinute() {
+        return String.valueOf(minute);
     }
 
     public String getDate() {

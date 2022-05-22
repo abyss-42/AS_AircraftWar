@@ -19,6 +19,9 @@ import java.io.BufferedReader;
 public class GameActivity extends AppCompatActivity implements View.OnClickListener{
     public static int WINDOW_WIDTH;
     public static int WINDOW_HEIGHT;
+    public static String whichMode;
+    public static GameView gameView = null;
+    public static final Object lock = new Object();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +48,26 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
         switch (view.getId()){
             case R.id.easy:
-                setContentView(new SimpleGameView(this));
+                gameView = new SimpleGameView(this);
+                setContentView(gameView);
+                whichMode = "simple";
                 break;
             case R.id.normal:
-                setContentView(new NormalGameView(this));
+                gameView = new NormalGameView(this);
+                setContentView(gameView);
+                whichMode = "normal";
                 break;
             case R.id.hard:
-                setContentView(new DifficultGameView(this));
+                gameView = new DifficultGameView(this);
+                setContentView(gameView);
+                whichMode = "hard";
                 break;
             default:
-                setContentView(new GameView(this));
+                gameView = new GameView(this);
+                setContentView(gameView);
+                whichMode = "error";
                 break;
         }
     }
+
 }

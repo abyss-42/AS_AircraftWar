@@ -1,6 +1,8 @@
 package com.example.myapplication.dao;
 
 
+import java.util.List;
+
 /**
  * 数据访问对象接口
  */
@@ -12,7 +14,7 @@ public interface RecordDao {
     /**
      * 打印得分排行榜
      */
-    public String[][] printRecord();
+    public List<Record> printRecord();
     /**
      * 将记录删除
      */

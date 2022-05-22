@@ -50,21 +50,26 @@ public class RecordDaoImple implements RecordDao {
      * 返回用于model的String数组，标识名次、姓名、分数、时间
      */
     @Override
-    public String[][] printRecord(){
+//    public String[][] printRecord(){
+//        getAll();
+//        String[][] tableData = new String[records.size()][];
+//        Collections.sort(records);
+//        for (int i=0; i<records.size(); i++){
+//           Record current = records.get(i);
+//           int minute = current.getMinute();
+//           String minuteString = String.valueOf(minute);
+//           if(minute<10){
+//               minuteString = '0'+minuteString;
+//           }
+//           String[] strings = {String.valueOf(i+1),current.getName(),String.valueOf(current.getScore()),current.getDate()+" "+current.getHour()+":"+minuteString};
+//           tableData[i] = strings;
+//       }
+//       return tableData;
+//    }
+    public List<Record> printRecord(){
         getAll();
-        String[][] tableData = new String[records.size()][];
         Collections.sort(records);
-        for (int i=0; i<records.size(); i++){
-           Record current = records.get(i);
-           int minute = current.getMinute();
-           String minuteString = String.valueOf(minute);
-           if(minute<10){
-               minuteString = '0'+minuteString;
-           }
-           String[] strings = {String.valueOf(i+1),current.getName(),String.valueOf(current.getScore()),current.getDate()+" "+current.getHour()+":"+minuteString};
-           tableData[i] = strings;
-       }
-       return tableData;
+        return records;
     }
 
     @Override

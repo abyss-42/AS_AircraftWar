@@ -5,11 +5,13 @@ import static com.example.myapplication.MainActivity.WINDOW_HEIGHT;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
 import android.view.SurfaceHolder;
 
 import androidx.annotation.NonNull;
 
 import com.example.myapplication.GameActivity;
+import com.example.myapplication.R;
 import com.example.myapplication.aircraft.BaseEnemy;
 import com.example.myapplication.aircraft.Boss;
 import com.example.myapplication.factory.*;
@@ -76,23 +78,32 @@ public class NormalGameView extends GameView{
             getEnemyAircrafts().add(boss);
             System.out.println("boss机产生");
             bossFlag = true;
-//            if(Game.isMusicTurnOn()){
-//                bossMusic = new LoopMusicThread("src/videos/bgm_boss.wav");
-//                ((Boss)boss).setBossMusic(bossMusic);
-//                bossMusic.start();
-//            }
+            if(GameView.isMusicTurnOn()){
+                boss_music_on();
+            }
         }
     }
 
 //    @Override
 //    public void closeBossMusic(){
-//        if(Game.isMusicTurnOn()){
-//            bossMusic.setJump();
-//            bossMusic.setStop();
+//        if(GameView.isMusicTurnOn()){
+//            boss_bgm.release();
+//            boss_bgm = null;
 //        }
 //    }
 
+    @Override
+    public void boss_music_on(){
+//        Runnable bgm_task = ()->{
+            System.out.println("Music on");
+            this.boss_bgm = MediaPlayer.create(this.getContext(), R.raw.bgm_boss);
+            boss_bgm.setLooping(true);
+            boss_bgm.start();
+//        };
+//
+//        new Thread(bgm_task).run();
 
+    }
     @Override
     public void paintBackground(Paint mPaint, Canvas canvas){
         //绘制滚动背景图片

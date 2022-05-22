@@ -7,6 +7,6 @@ import com.example.myapplication.Prop.PropBomb;
 public class PropBombFactory implements PropFactory{
     @Override
     public BaseProp createProp(int locationX, int locationY){
-        return new PropBomb(locationX, locationY, 0, 5);
+        return new PropBomb(locationX, locationY, 0, 10);
     }
 }

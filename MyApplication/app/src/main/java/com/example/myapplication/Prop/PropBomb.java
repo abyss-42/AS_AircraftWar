@@ -1,4 +1,5 @@
 package com.example.myapplication.Prop;
+import com.example.myapplication.R;
 import com.example.myapplication.aircraft.HeroAircraft;
 import com.example.myapplication.application.GameView;
 import com.example.myapplication.application.Subscriber;

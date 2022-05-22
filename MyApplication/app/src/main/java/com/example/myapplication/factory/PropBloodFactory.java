@@ -7,6 +7,6 @@ import com.example.myapplication.Prop.PropBlood;
 public class PropBloodFactory implements PropFactory{
     @Override
     public BaseProp createProp(int locationX, int locationY){
-        return new PropBlood(locationX, locationY, 0, 5);
+        return new PropBlood(locationX, locationY, 0, 10);
     }
 }

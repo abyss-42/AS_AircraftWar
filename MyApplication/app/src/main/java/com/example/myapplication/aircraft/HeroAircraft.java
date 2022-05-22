@@ -49,7 +49,7 @@ public class HeroAircraft extends AbstractAircraft {
                 if(heroAircraft == null){
                     heroAircraft = new HeroAircraft(MainActivity.WINDOW_WIDTH / 2,
                             MainActivity.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
-                            0, 0, 1500, 1, 30, -1);
+                            0, 0, 15000, 1, 30, -1);
                     heroAircraft.setShootStrategy(new StraightShoot("HeroAircraft"));
                 }
             }

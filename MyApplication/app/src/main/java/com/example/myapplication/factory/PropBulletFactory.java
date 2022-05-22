@@ -7,6 +7,6 @@ import com.example.myapplication.Prop.PropBullet;
 public class PropBulletFactory implements PropFactory{
     @Override
     public BaseProp createProp(int locationX, int locationY){
-        return new PropBullet(locationX, locationY, 0, 5);
+        return new PropBullet(locationX, locationY, 0, 10);
     }
 }

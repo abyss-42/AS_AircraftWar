@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity{
         WINDOW_HEIGHT = dm.heightPixels;
         Button start = findViewById(R.id.start);
         Button login = findViewById(R.id.Login);
-        Button rank = findViewById(R.id.Rank);
         getSupportActionBar().hide();
     }
 
@@ -36,12 +35,11 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void LoginGame(View view){
-
     }
 
-    public void ShowRankTable(View view){
-//        Intent intent = new Intent(this,RankActivity.class);
-//        startActivity(intent);
+    public void RegisterGame(View view){
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
     }
 
     public void onCheckboxClicked(View view){

@@ -26,7 +26,6 @@ public class RankActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("rank");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank);
         listView = findViewById(R.id.rankList);

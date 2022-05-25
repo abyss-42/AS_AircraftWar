@@ -35,13 +35,13 @@
 
 
     <Button
-        android:id="@+id/Rank"
+        android:id="@+id/Register"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_marginStart="105dp"
         android:layout_marginTop="479dp"
-        android:onClick="ShowRankTable"
-        android:text="Rank"
+        android:onClick="RegisterGame"
+        android:text="Register"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

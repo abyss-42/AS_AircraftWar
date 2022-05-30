@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void LoginGame(View view){
+        Intent intent = new Intent(this,MarketActivity.class);
+        startActivity(intent);
     }
 
     public void RegisterGame(View view){

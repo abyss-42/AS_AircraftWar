@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="ed_hint_pas"> Pwd Edit</string>
+    <string name="user_name"> User Name</string>
 </resources>

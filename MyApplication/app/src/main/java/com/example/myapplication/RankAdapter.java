@@ -37,4 +37,6 @@ public class RankAdapter extends ArrayAdapter<Record> {
         return view;
     }
 
+
+
 }

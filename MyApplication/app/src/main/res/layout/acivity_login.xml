@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.myapplication.PwdEdit
+    <com.example.myapplication.login.PwdEdit
         android:id="@+id/ed_pas"
         android:layout_width="382dp"
         android:layout_height="49dp"

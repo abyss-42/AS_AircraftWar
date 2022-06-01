@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.login;
 
 import android.content.Context;
 import android.text.InputType;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import com.example.myapplication.R;
+
 //密码框控件
 public class PwdEdit extends LinearLayout implements View.OnClickListener {
     private EditText editText;

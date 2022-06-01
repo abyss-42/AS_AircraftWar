@@ -14,16 +14,16 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".RankActivity"
+            android:name=".rank.RankActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".login.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".GameActivity"
             android:exported="false" />
         <activity
-            android:name=".MarketActivity"
+            android:name=".market.MarketActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

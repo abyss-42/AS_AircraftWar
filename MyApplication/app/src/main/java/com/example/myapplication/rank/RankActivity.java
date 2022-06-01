@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.rank;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,14 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.myapplication.GameActivity;
+import com.example.myapplication.R;
 import com.example.myapplication.dao.Record;
 import com.example.myapplication.dao.RecordDaoImple;
+import com.example.myapplication.login.LoginActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RankActivity extends AppCompatActivity {
@@ -43,7 +44,16 @@ public class RankActivity extends AppCompatActivity {
         DisplayMetrics dm = getResources().getDisplayMetrics();
         WINDOW_WIDTH = dm.widthPixels;
         WINDOW_HEIGHT = dm.heightPixels;
-        Record record = new Record("hhh",GameActivity.gameView.getScore());
+
+        String username = LoginActivity.userNameOutput;
+        Record record;
+        if(username != null){
+            record = new Record(username,GameActivity.gameView.getScore());
+        }
+        else {
+            record = new Record("visitor",GameActivity.gameView.getScore());
+        }
+
         recordDaoImple.addRecord(record);
         List<Record> tableTata = recordDaoImple.printRecord();
 //        Record record = new Record("hhh",100);

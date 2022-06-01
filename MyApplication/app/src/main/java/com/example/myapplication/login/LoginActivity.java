@@ -1,10 +1,9 @@
-package com.example.myapplication;
+package com.example.myapplication.login;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
-import android.service.autofill.UserData;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -15,14 +14,22 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.GameActivity;
+import com.example.myapplication.R;
 import com.example.myapplication.SQLite.MyDatabaseHelper;
+import com.example.myapplication.SQLite.User;
 
 //登录界面
 public class LoginActivity extends AppCompatActivity {
     public static int WINDOW_WIDTH;
     public static int WINDOW_HEIGHT;
+    public static String userNameOutput = null;
+    public static String pwdOutput;
 
     private MyDatabaseHelper dbHelper;
+
+    PwdEdit pasEditText;
+    EditText userNameEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -90,7 +97,9 @@ public class LoginActivity extends AppCompatActivity {
                     String pwd = dbHelper.getPasswordByUsername(db, name);
                     if(password.equals(pwd)){
                         Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this,GameActivity.class);
+                        //传递用户名
+                        userNameOutput = userNameEdit.getText().toString().trim();
+                        Intent intent = new Intent(LoginActivity.this, GameActivity.class);
                         startActivity(intent);
                     }
                     else{
@@ -105,4 +114,5 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
 }

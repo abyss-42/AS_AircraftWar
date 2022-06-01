@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.SQLite;
 
 public class User {
     private String username;

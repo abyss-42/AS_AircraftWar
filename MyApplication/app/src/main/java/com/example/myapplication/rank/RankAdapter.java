@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.rank;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.myapplication.R;
 import com.example.myapplication.dao.Record;
 
 import java.util.List;

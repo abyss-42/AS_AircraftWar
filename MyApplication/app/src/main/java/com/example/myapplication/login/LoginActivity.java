@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.login;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,7 +16,9 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.R;
 import com.example.myapplication.SQLite.MyDatabaseHelper;
+import com.example.myapplication.User;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -37,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private MyDatabaseHelper dbHelper;
     public Socket socket;
     public User currentUser = null;
+    public static String userNameOutput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -68,11 +71,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //获取输入，trim()去掉空格和制表符
-                String name = userNameEdit.getText().toString().trim();
+                userNameOutput = userNameEdit.getText().toString().trim();
                 String password = pasEditText.getText().toString().trim();
                 //看看有没有获取到
                 System.out.println("pas:" + password);
-                System.out.println("userName:" + name);
+                System.out.println("userName:" + userNameOutput);
 
 //                SQLiteDatabase db = dbHelper.getWritableDatabase();
 //                if(!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(password)) {
@@ -83,8 +86,8 @@ public class LoginActivity extends AppCompatActivity {
 //                else{
 //                    Toast.makeText(LoginActivity.this,"信息不全，注册失败",Toast.LENGTH_SHORT).show();
 //                }
-                if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(password)) {
-                    User user = new User(name, password, 0);
+                if (!TextUtils.isEmpty(userNameOutput) && !TextUtils.isEmpty(password)) {
+                    User user = new User(userNameOutput, password, 0);
                     try {
                         socket = new Socket();
                         socket.connect(new InetSocketAddress
@@ -125,11 +128,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //获取输入，trim()去掉空格和制表符
-                String name = userNameEdit.getText().toString().trim();
+                userNameOutput = userNameEdit.getText().toString().trim();
                 String password = pasEditText.getText().toString().trim();
                 //看看有没有获取到
                 System.out.println("pas:" + password);
-                System.out.println("userName:" + name);
+                System.out.println("userName:" + userNameOutput);
 
 //                SQLiteDatabase db = dbHelper.getWritableDatabase();
 //                if(!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(password)) {
@@ -147,9 +150,9 @@ public class LoginActivity extends AppCompatActivity {
 //                else{
 //                    Toast.makeText(LoginActivity.this,"用户名或密码不能为空",Toast.LENGTH_SHORT).show();
 //                }
-                if(!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(password)) {
+                if(!TextUtils.isEmpty(userNameOutput)&&!TextUtils.isEmpty(password)) {
                     try {
-                        User user = new User(name, password, 0);
+                        User user = new User(userNameOutput, password, 0);
                         socket = new Socket();
                         socket.connect(new InetSocketAddress
                                 ("10.250.43.104",9999),5000);

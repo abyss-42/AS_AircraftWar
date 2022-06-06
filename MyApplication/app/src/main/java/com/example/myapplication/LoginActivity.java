@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.service.autofill.UserData;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,12 +18,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.SQLite.MyDatabaseHelper;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+
 //登录界面
 public class LoginActivity extends AppCompatActivity {
     public static int WINDOW_WIDTH;
     public static int WINDOW_HEIGHT;
 
     private MyDatabaseHelper dbHelper;
+    public Socket socket;
+    public User currentUser = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -60,11 +74,44 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println("pas:" + password);
                 System.out.println("userName:" + name);
 
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
-                if(!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(password)) {
+//                SQLiteDatabase db = dbHelper.getWritableDatabase();
+//                if(!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(password)) {
+//                    User user = new User(name, password, 0);
+//                    dbHelper.add(db, user);
+//                    Toast.makeText(LoginActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
+//                }
+//                else{
+//                    Toast.makeText(LoginActivity.this,"信息不全，注册失败",Toast.LENGTH_SHORT).show();
+//                }
+                if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(password)) {
                     User user = new User(name, password, 0);
-                    dbHelper.add(db, user);
-                    Toast.makeText(LoginActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
+                    try {
+                        socket = new Socket();
+                        socket.connect(new InetSocketAddress
+                                ("10.250.43.104",9999),5000);
+                        PrintWriter writer;
+                        writer = new PrintWriter(new BufferedWriter(
+                                new OutputStreamWriter(
+                                        socket.getOutputStream(),"UTF-8")),true);
+                        writer.println("register");
+                        Log.i("client", "ready to send user to server");
+                        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                        oos.writeObject(user);
+                        Log.i("client", "send user to server");
+                        BufferedReader in;
+                        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        if(in.readLine().equals("success")){
+                            Toast.makeText(LoginActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(LoginActivity.this,"注册失败",Toast.LENGTH_SHORT).show();
+                        }
+//                        in.close();
+//                        writer.close();
+//                        oos.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                 }
                 else{
                     Toast.makeText(LoginActivity.this,"信息不全，注册失败",Toast.LENGTH_SHORT).show();
@@ -84,17 +131,48 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println("pas:" + password);
                 System.out.println("userName:" + name);
 
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
+//                SQLiteDatabase db = dbHelper.getWritableDatabase();
+//                if(!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(password)) {
+//                    //获取密码
+//                    String pwd = dbHelper.getPasswordByUsername(db, name);
+//                    if(password.equals(pwd)){
+//                        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent(LoginActivity.this,GameActivity.class);
+//                        startActivity(intent);
+//                    }
+//                    else{
+//                        Toast.makeText(LoginActivity.this, "密码错误，登录失败", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//                else{
+//                    Toast.makeText(LoginActivity.this,"用户名或密码不能为空",Toast.LENGTH_SHORT).show();
+//                }
                 if(!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(password)) {
-                    //获取密码
-                    String pwd = dbHelper.getPasswordByUsername(db, name);
-                    if(password.equals(pwd)){
-                        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this,GameActivity.class);
-                        startActivity(intent);
-                    }
-                    else{
-                        Toast.makeText(LoginActivity.this, "密码错误，登录失败", Toast.LENGTH_SHORT).show();
+                    try {
+                        User user = new User(name, password, 0);
+                        socket = new Socket();
+                        socket.connect(new InetSocketAddress
+                                ("10.250.43.104",9999),5000);
+                        PrintWriter writer;
+                        writer = new PrintWriter(new BufferedWriter(
+                                new OutputStreamWriter(
+                                        socket.getOutputStream(),"UTF-8")),true);
+                        writer.println("login");
+                        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                        oos.writeObject(user);
+                        BufferedReader in;
+                        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        if(in.readLine().equals("success")){
+                            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+                            currentUser = (User)ois.readObject();
+                            Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(LoginActivity.this,GameActivity.class);
+//                            startActivity(intent);
+                        }else{
+                            Toast.makeText(LoginActivity.this,"登录失败",Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (IOException | ClassNotFoundException e) {
+                        e.printStackTrace();
                     }
                 }
                 else{

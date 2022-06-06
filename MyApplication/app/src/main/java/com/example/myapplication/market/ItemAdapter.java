@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.market;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.myapplication.R;
+import com.example.myapplication.market.MarketItem;
 
 import java.util.List;
 

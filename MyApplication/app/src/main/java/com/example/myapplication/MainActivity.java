@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 import com.example.myapplication.application.GameView;
+import com.example.myapplication.login.LoginActivity;
+import com.example.myapplication.market.MarketActivity;
 
 public class MainActivity extends AppCompatActivity{
     public static int WINDOW_WIDTH;
@@ -40,12 +42,12 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void LoginGame(View view){
-        Intent intent = new Intent(this,MarketActivity.class);
+        Intent intent = new Intent(this, MarketActivity.class);
         startActivity(intent);
     }
 
     public void RegisterGame(View view){
-        Intent intent = new Intent(this,LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 

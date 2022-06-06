@@ -1,7 +1,5 @@
 package com.example.myapplication.application;
 
-import static com.example.myapplication.MainActivity.WINDOW_HEIGHT;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Build;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -19,7 +16,7 @@ import android.view.SurfaceView;
 
 import com.example.myapplication.GameActivity;
 import com.example.myapplication.MainActivity;
-import com.example.myapplication.RankActivity;
+import com.example.myapplication.rank.RankActivity;
 import com.example.myapplication.aircraft.*;
 
 import androidx.annotation.NonNull;
@@ -40,7 +37,6 @@ import com.example.myapplication.Prop.PropImmune;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;

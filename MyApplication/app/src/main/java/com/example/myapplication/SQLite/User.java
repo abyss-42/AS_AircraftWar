@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.SQLite;
 
 import java.io.Serializable;
 

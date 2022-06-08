@@ -37,7 +37,11 @@ public class LoginActivity extends AppCompatActivity {
     public static int WINDOW_HEIGHT;
 
     private MyDatabaseHelper dbHelper;
-    public Socket socket;
+
+    //设置为static方便对战的时候使用
+    public Socket socket = new Socket();
+
+    //登录后存储用户
     public User currentUser = null;
     public static String userNameOutput;
 
@@ -89,18 +93,20 @@ public class LoginActivity extends AppCompatActivity {
                 if (!TextUtils.isEmpty(userNameOutput) && !TextUtils.isEmpty(password)) {
                     User user = new User(userNameOutput, password, 0);
                     try {
-                        socket = new Socket();
+                        //连接服务器
                         socket.connect(new InetSocketAddress
                                 ("10.250.43.104",9999),5000);
+                        //向服务器说明为注册模式
                         PrintWriter writer;
                         writer = new PrintWriter(new BufferedWriter(
                                 new OutputStreamWriter(
                                         socket.getOutputStream(),"UTF-8")),true);
                         writer.println("register");
-                        Log.i("client", "ready to send user to server");
+                        //将用户传给服务器
                         ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                         oos.writeObject(user);
                         Log.i("client", "send user to server");
+                        //获取服务器响应，若为success则说明注册成功
                         BufferedReader in;
                         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                         if(in.readLine().equals("success")){
@@ -108,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                         }else{
                             Toast.makeText(LoginActivity.this,"注册失败",Toast.LENGTH_SHORT).show();
                         }
+                        //不能关闭流，socket会随之一起关闭
 //                        in.close();
 //                        writer.close();
 //                        oos.close();
@@ -153,18 +160,22 @@ public class LoginActivity extends AppCompatActivity {
                 if(!TextUtils.isEmpty(userNameOutput)&&!TextUtils.isEmpty(password)) {
                     try {
                         User user = new User(userNameOutput, password, 0);
-                        socket = new Socket();
+                        //连接服务器
                         socket.connect(new InetSocketAddress
                                 ("10.250.43.104",9999),5000);
+                        //传递服务器登录模式
                         PrintWriter writer;
                         writer = new PrintWriter(new BufferedWriter(
                                 new OutputStreamWriter(
                                         socket.getOutputStream(),"UTF-8")),true);
                         writer.println("login");
+                        //将当前用户输入传递给服务器
                         ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                         oos.writeObject(user);
+                        //获取服务器返回值，如果为success表示登录成功
                         BufferedReader in;
                         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        //登录成功，则将服务器存储的用户数据返回
                         if(in.readLine().equals("success")){
                             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                             currentUser = (User)ois.readObject();

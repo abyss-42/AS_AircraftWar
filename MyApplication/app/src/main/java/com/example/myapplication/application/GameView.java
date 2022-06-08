@@ -92,6 +92,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
     private int cycleTime = 0;
     private int heroAircraftShootCycle = 150;
     private int heroCycleTime = 0;
+
+    public boolean isInternet = false;
     /**
      * 决定是否开启音效
      */
@@ -172,6 +174,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
             boss_bgm = null;
     }
 
+    public HeroAircraft getHeroAircraft() {
+        return heroAircraft;
+    }
+
     /**
      * 按一定概率创建普通敌机和精英敌机
      */
@@ -236,11 +242,17 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
             // 后处理
             postProcessAction();
 
+            //更新对手
+            getOtherUser();
+
+            //更新自己
+            updateMyUser();
+
             //每个时刻重绘界面
 //            repaint();
             draw();
             // 游戏结束检查
-            if (heroAircraft.getHp() <= 0) {
+            if (heroAircraft.getHp() <= 0 || otherUserOver()) {
                 // 游戏结束
                 //关闭背景音乐、如果敌机存在，关闭敌机音乐
                 if(musicTurnOn){
@@ -254,15 +266,26 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
                     }
                 }
                 scheduledExecutorService.shutdown();
+                closeSocket();
                 gameOverFlag = true;
                 PropBullet.setJump();
                 PropImmune.setJump();
                 System.out.println("Game Over!");
-                Intent intent = new Intent(context,RankActivity.class);
-                context.startActivity(intent);
+                if(!isInternet){
+                    Intent intent = new Intent(context,RankActivity.class);
+                    context.startActivity(intent);
+                }else if(otherUserOver()){
+//                    Intent intent = new Intent(context,RankActivity.class);
+//                    context.startActivity(intent);
+                }else{
+//                    Intent intent = new Intent(context,RankActivity.class);
+//                    context.startActivity(intent);
+                }
             }
 
         };
+
+
 
         /**
          * 以固定延迟时间进行执行
@@ -447,6 +470,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
      */
     public void createBossAction(){};
 
+    public void getOtherUser(){};
+
+    public void updateMyUser(){};
+
+    public boolean otherUserOver(){
+        return false;
+    }
+
+    public void closeSocket(){};
+
     /**
      * 后处理：
      * 1. 删除无效的子弹
@@ -545,6 +578,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
         canvas.drawBitmap(ImageManager.HERO_IMAGE, heroAircraft.getLocationX() - ImageManager.HERO_IMAGE.getWidth() / 2, heroAircraft.getLocationY() - ImageManager.HERO_IMAGE.getHeight() / 2, mPaint);
         //绘制得分
         paintScoreAndLife(mPaint);
+
+        paintOtherUser(mPaint,canvas);
+
         //绘图
         surfaceHolder.unlockCanvasAndPost(canvas);
 
@@ -575,6 +611,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
         y = y + 80;
         canvas.drawText("LIFE:" + this.heroAircraft.getHp(), x, y, mPaint);
     }
+
+    public void paintOtherUser(Paint mPaint,Canvas canvas){};
     public int getBackGroundTop() {
         return backGroundTop;
     }

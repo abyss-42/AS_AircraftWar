@@ -3,9 +3,12 @@ package com.example.myapplication.rank;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -61,6 +64,15 @@ public class RankActivity extends AppCompatActivity {
 //        test.add(record);
         RankAdapter rankAdapter = new RankAdapter(RankActivity.this,R.layout.rank_list,tableTata);
         listView.setAdapter(rankAdapter);
+
+//        Button playAgainButton = findViewById(R.id.againButton);
+//        playAgainButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(RankActivity.this, GameActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         getSupportActionBar().hide();
     }

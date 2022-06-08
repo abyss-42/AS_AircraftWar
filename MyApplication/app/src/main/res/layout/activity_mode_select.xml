@@ -4,35 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".rank.RankActivity">
+    android:background="@drawable/bg5"
+    tools:context=".ModeSelectActivity">
 
-    <TextView
-        android:id="@+id/rank_title"
-        android:layout_width="355dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginEnd="116dp"
-        android:gravity="center"
-        android:text="Rank"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/black"
-        android:textSize="50sp"
-        android:typeface="serif"
+    <Button
+        android:id="@+id/singleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SinglePlayer Mode"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.055" />
+        app:layout_constraintVertical_bias="0.396" />
 
-    <ListView
-        android:id="@+id/rankList"
-        android:layout_width="409dp"
-        android:layout_height="474dp"
+    <Button
+        android:id="@+id/multiButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MultiPlayer Mode"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.61" />
-
+        app:layout_constraintVertical_bias="0.661" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                     try {
                         //连接服务器
                         socket.connect(new InetSocketAddress
-                                ("10.250.43.104",9999),5000);
+                                ("192.168.56.1",9999),5000);
                         //向服务器说明为注册模式
                         PrintWriter writer;
                         writer = new PrintWriter(new BufferedWriter(
@@ -162,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
                         User user = new User(userNameOutput, password, 0);
                         //连接服务器
                         socket.connect(new InetSocketAddress
-                                ("10.250.43.104",9999),5000);
+                                ("192.168.56.1",9999),5000);
                         //传递服务器登录模式
                         PrintWriter writer;
                         writer = new PrintWriter(new BufferedWriter(

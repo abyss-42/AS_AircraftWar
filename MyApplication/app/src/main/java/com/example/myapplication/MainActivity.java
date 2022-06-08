@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity{
 
     public void startGame(View view){
         //界面切换
-        Intent intent = new Intent(this, GameActivity.class);
+        Intent intent = new Intent(this, ModeSelectActivity.class);
         startActivity(intent);
     }
 
@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void onCheckboxClicked(View view){
-        // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
 
         if(checked){

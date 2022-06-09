@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.ModeSelectActivity;
 import com.example.myapplication.R;
-import com.example.myapplication.SQLite.MyDatabaseHelper;
+//import com.example.myapplication.SQLite.MyDatabaseHelper;
 import com.example.myapplication.User;
 
 import java.io.BufferedReader;
@@ -37,13 +37,13 @@ public class LoginActivity extends AppCompatActivity {
     public static int WINDOW_WIDTH;
     public static int WINDOW_HEIGHT;
 
-    private MyDatabaseHelper dbHelper;
+//    private MyDatabaseHelper dbHelper;
 
     //设置为static方便对战的时候使用
-    public Socket socket = new Socket();
+    public static Socket socket = new Socket();
 
     //登录后存储用户
-    public User currentUser = null;
+    public static User currentUser = null;
     public static String userNameOutput;
 
     @Override
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         Button register_button = findViewById(R.id.registerButton);
 
         //数据库
-        dbHelper = new MyDatabaseHelper(this, "user.db", null, 1);
+//        dbHelper = new MyDatabaseHelper(this, "user.db", null, 1);
 
         //实现用户注册
         register_button.setOnClickListener(new View.OnClickListener() {

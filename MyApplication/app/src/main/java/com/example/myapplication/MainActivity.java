@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity{
         WINDOW_WIDTH = dm.widthPixels;
         WINDOW_HEIGHT = dm.heightPixels;
         Button start = findViewById(R.id.start);
-        Button login = findViewById(R.id.Login);
         getSupportActionBar().hide();
     }
 
@@ -41,10 +40,10 @@ public class MainActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-    public void LoginGame(View view){
-        Intent intent = new Intent(this, MarketActivity.class);
-        startActivity(intent);
-    }
+//    public void LoginGame(View view){
+//        Intent intent = new Intent(this, MarketActivity.class);
+//        startActivity(intent);
+//    }
 
     public void RegisterGame(View view){
         Intent intent = new Intent(this, LoginActivity.class);

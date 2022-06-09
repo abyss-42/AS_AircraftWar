@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.ModeSelectActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.SQLite.MyDatabaseHelper;
 import com.example.myapplication.User;
@@ -111,6 +112,8 @@ public class LoginActivity extends AppCompatActivity {
                         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                         if(in.readLine().equals("success")){
                             Toast.makeText(LoginActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, ModeSelectActivity.class);
+                            startActivity(intent);
                         }else{
                             Toast.makeText(LoginActivity.this,"注册失败",Toast.LENGTH_SHORT).show();
                         }
@@ -180,8 +183,8 @@ public class LoginActivity extends AppCompatActivity {
                             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                             currentUser = (User)ois.readObject();
                             Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
-//                            Intent intent = new Intent(LoginActivity.this,GameActivity.class);
-//                            startActivity(intent);
+                            Intent intent = new Intent(LoginActivity.this, ModeSelectActivity.class);
+                            startActivity(intent);
                         }else{
                             Toast.makeText(LoginActivity.this,"登录失败",Toast.LENGTH_SHORT).show();
                         }

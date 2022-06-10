@@ -15,7 +15,10 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.example.myapplication.GameActivity;
+import com.example.myapplication.Lose;
 import com.example.myapplication.MainActivity;
+import com.example.myapplication.ModeSelectActivity;
+import com.example.myapplication.Win;
 import com.example.myapplication.rank.RankActivity;
 import com.example.myapplication.aircraft.*;
 
@@ -108,7 +111,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
         //获取图片
         bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.bg);
         //解决长宽不匹配问题
-        bitmap = Bitmap.createScaledBitmap(bitmap, GameActivity.WINDOW_WIDTH, GameActivity.WINDOW_HEIGHT, true);
+        bitmap = Bitmap.createScaledBitmap(bitmap, GameActivity.WINDOW_WIDTH>0?GameActivity.WINDOW_WIDTH: ModeSelectActivity.WINDOW_WIDTH, GameActivity.WINDOW_HEIGHT>0?GameActivity.WINDOW_HEIGHT:ModeSelectActivity.WINDOW_HEIGHT, true);
         surfaceHolder = this.getHolder();
         surfaceHolder.addCallback(this);
         heroAircraft = HeroAircraft.getHeroAircraft();
@@ -275,11 +278,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
                     Intent intent = new Intent(context,RankActivity.class);
                     context.startActivity(intent);
                 }else if(otherUserOver()){
-//                    Intent intent = new Intent(context,RankActivity.class);
-//                    context.startActivity(intent);
+                    Intent intent = new Intent(context, Win.class);
+                    context.startActivity(intent);
                 }else{
-//                    Intent intent = new Intent(context,RankActivity.class);
-//                    context.startActivity(intent);
+                    Intent intent = new Intent(context, Lose.class);
+                    context.startActivity(intent);
                 }
             }
 
@@ -432,7 +435,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
                 // 英雄机 与 敌机 相撞，均损毁
                 if (enemyAircraft.crash(heroAircraft) || heroAircraft.crash(enemyAircraft)) {
                     enemyAircraft.vanish();
-                    heroAircraft.decreaseHp(Integer.MAX_VALUE);
+                    heroAircraft.decreaseHp(heroAircraft.getHp());
                 }
             }
         }

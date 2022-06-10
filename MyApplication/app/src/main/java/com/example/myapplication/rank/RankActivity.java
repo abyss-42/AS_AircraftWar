@@ -34,14 +34,14 @@ public class RankActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rank);
         listView = findViewById(R.id.rankList);
         TextView title = findViewById(R.id.rank_title);
-        if(GameActivity.whichMode == "simple"){
-            recordDaoImple = new RecordDaoImple("easy.txt",this);
+        if(GameActivity.whichMode == "simple" ){
+            recordDaoImple = new RecordDaoImple("neweasy.txt",this);
             title.setText("Easy Rank");
         }else if(GameActivity.whichMode == "normal"){
-            recordDaoImple = new RecordDaoImple("normal.txt",this);
+            recordDaoImple = new RecordDaoImple("newnormal.txt",this);
             title.setText("Normal Rank");
         }else{
-            recordDaoImple = new RecordDaoImple("hard.txt",this);
+            recordDaoImple = new RecordDaoImple("newhard.txt",this);
             title.setText("Hard Rank");
         }
         DisplayMetrics dm = getResources().getDisplayMetrics();

@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.view.MotionEvent;
 
 import com.example.myapplication.GameActivity;
+import com.example.myapplication.ModeSelectActivity;
 import com.example.myapplication.Prop.PropBullet;
 import com.example.myapplication.Prop.PropImmune;
 import com.example.myapplication.R;
@@ -36,11 +37,12 @@ public class InternetGameView extends GameView{
     /**
      * 敌机属性
      */
-    private User otherUser;
+    private User otherUser = new User("1","1",0);
     private float elitePossibility = 0.4f;
     private int hp = 60;
     private int power = 30;
     private int lastScore = 0;
+    private int decreaseHp = 30;
     public InternetGameView(Context context){
         super(context);
         isInternet = true;
@@ -52,7 +54,67 @@ public class InternetGameView extends GameView{
         RandomPropFactory.setBulletPossibility(0.1f);
         RandomPropFactory.setImmunePossibility(0.1f);
         RandomPropFactory.setBombPossibility(0.05f);
-        System.out.println("普通模式，周期500ms，精英机掉落加血道具概率0.1，火力道具概率0.1，炸弹道具概率0.05，免疫道具概率0.1");
+        System.out.println("对战模式，周期500ms，精英机掉落加血道具概率0.1，火力道具概率0.1，炸弹道具概率0.05，免疫道具概率0.1");
+        Runnable updateOtherUserHp = new Runnable() {
+            @Override
+            public void run() {
+                while (otherUser.getLife()>0){
+                    int[] delayTime = {500,1000,2000,3000};
+                    Random r = new Random();
+                    float rand = r.nextFloat();
+                    int index;
+                    if(rand<0.2){
+                        index = 0;
+                    }else if(rand<0.7){
+                        index = 1;
+                    }else if(rand <0.8){
+                        index = 2;
+                    }else {
+                        index = 3;
+                    }
+                    try {
+                        Thread.sleep(delayTime[index]);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    otherUser.setLife(otherUser.getLife()-decreaseHp);
+                }
+            }
+        };
+
+        Runnable updateOtherUserScore = new Runnable() {
+            @Override
+            public void run() {
+                while (otherUser.getLife()>0){
+                    int[] delayTime = {3000,1000,2000};
+                    Random r = new Random();
+                    float rand = r.nextFloat();
+                    int index;
+                    if(rand<0.4){
+                        index = 0;
+                    }else if(rand<0.6){
+                        index = 1;
+                    }else{
+                        index = 2;
+                    }
+                    try {
+                        Thread.sleep(delayTime[index]);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if(rand<0.85){
+                        otherUser.setSocre(otherUser.getSocre()+10);
+                    }else if(rand<0.95){
+                        otherUser.setSocre(otherUser.getSocre()+20);
+                    }else{
+                        otherUser.setSocre(otherUser.getSocre()+40);
+                    }
+                }
+            }
+        };
+        new Thread(updateOtherUserHp).start();
+        new Thread(updateOtherUserScore).start();
+
     }
     /**
      * 按6:4概率创建普通敌机和精英敌机,随时间精英机概率增加
@@ -71,6 +133,7 @@ public class InternetGameView extends GameView{
         }
         enemyFactory.setHp(hp+timeCycleCount/50);
         enemyFactory.setPower(power+timeCycleCount/50);
+        decreaseHp = decreaseHp+timeCycleCount/50;
         if(timeCycleCount%50==0 && timeCycleCount!=0){
             System.out.printf("难度提升！精英机出现概率：%.2f,除了boss的敌机血量：%d,敌机子弹攻击力：%d\n",elitePossibility+timeCycleCount/50*0.01f,hp+timeCycleCount/50,power+timeCycleCount/50);
         }
@@ -119,47 +182,51 @@ public class InternetGameView extends GameView{
     @Override
     public void paintBackground(Paint mPaint, Canvas canvas){
         //绘制滚动背景图片
-        canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE_NORMAL, 0, backGroundTop- GameActivity.WINDOW_HEIGHT, mPaint);
+        canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE_NORMAL, 0, backGroundTop- ModeSelectActivity.WINDOW_HEIGHT, mPaint);
         canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE_NORMAL, 0, backGroundTop,mPaint);
     }
 
     @Override
     public void paintOtherUser(Paint mPaint, Canvas canvas){
-        int x = 60;
+        int x = 500;
         int y = 60;
         mPaint.setColor(Color.WHITE);
         mPaint.setTextSize(80);
         mPaint.setTypeface(Typeface.SANS_SERIF);
         mPaint.setFakeBoldText(true);
 //        mPaint.setFont(new Font("SansSerif", Font.BOLD, 22));
+        canvas.drawText("OtherUser:",x,y,mPaint);
+        y = y + 80;
         canvas.drawText("SCORE:" + otherUser.getSocre(), x, y, mPaint);
         y = y + 80;
         canvas.drawText("LIFE:" + otherUser.getLife(), x, y, mPaint);
-    }
-
-    public void getOtherUser(){
-        ObjectInputStream ois = null;
-        try {
-            ois = new ObjectInputStream(socket.getInputStream());
-            otherUser = (User)ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
 
     }
 
-    public void updateMyUser(){
-        currentUser.setLife(getHeroAircraft().getHp());
-        currentUser.setSocre(getScore());
-        ObjectOutputStream oos = null;
-        try {
-            oos = new ObjectOutputStream(socket.getOutputStream());
-            oos.writeObject(currentUser);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
+//    public void getOtherUser(){
+//        ObjectInputStream ois = null;
+//        try {
+//            ois = new ObjectInputStream(socket.getInputStream());
+//            otherUser = (User)ois.readObject();
+//        } catch (IOException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+
+
+//    }
+
+//    public void updateMyUser(){
+//        currentUser.setLife(getHeroAircraft().getHp());
+//        currentUser.setSocre(getScore());
+//        ObjectOutputStream oos = null;
+//        try {
+//            oos = new ObjectOutputStream(socket.getOutputStream());
+//            oos.writeObject(currentUser);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public boolean otherUserOver(){
         if(otherUser.getLife() <= 0){
@@ -169,12 +236,5 @@ public class InternetGameView extends GameView{
         }
     }
 
-    public void closeSocket(){
-        try {
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 }

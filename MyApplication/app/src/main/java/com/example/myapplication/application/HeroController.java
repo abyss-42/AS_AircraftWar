@@ -4,6 +4,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.myapplication.GameActivity;
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.aircraft.HeroAircraft;
 
 //import java.awt.event.MouseAdapter;
@@ -33,7 +34,7 @@ public class HeroController implements View.OnTouchListener{
         if(eventAction == MotionEvent.ACTION_MOVE){
             int x = (int) event.getRawX();
             int y = (int) event.getRawY();
-            if ( x<0 || x>GameActivity.WINDOW_WIDTH || y<0 || y> GameActivity.WINDOW_HEIGHT){
+            if ( x<0 || x> MainActivity.WINDOW_WIDTH || y<0 || y> MainActivity.WINDOW_HEIGHT){
                     // 防止超出边界
                     return false;
                 }

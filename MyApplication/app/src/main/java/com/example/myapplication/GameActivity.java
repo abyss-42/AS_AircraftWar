@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.myapplication.application.DifficultGameView;
 //import com.example.myapplication.application.Game;
 import com.example.myapplication.application.GameView;
+import com.example.myapplication.application.InternetGameView;
 import com.example.myapplication.application.NormalGameView;
 import com.example.myapplication.application.SimpleGameView;
 
@@ -55,6 +57,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.normal:
                 gameView = new NormalGameView(this);
                 setContentView(gameView);
+                Log.i("test","ss");
                 whichMode = "normal";
                 break;
             case R.id.hard:

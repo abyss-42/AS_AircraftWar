@@ -28,6 +28,12 @@
             android:name=".GameActivity"
             android:exported="false" />
         <activity
+            android:name=".Win"
+            android:exported="false" />
+        <activity
+            android:name=".Lose"
+            android:exported="false" />
+        <activity
             android:name=".market.MarketActivity"
             android:exported="false" />
         <activity

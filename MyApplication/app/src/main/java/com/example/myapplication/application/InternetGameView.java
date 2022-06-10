@@ -58,6 +58,11 @@ public class InternetGameView extends GameView{
         Runnable updateOtherUserHp = new Runnable() {
             @Override
             public void run() {
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 while (otherUser.getLife()>0){
                     int[] delayTime = {500,1000,2000,3000};
                     Random r = new Random();
@@ -85,6 +90,11 @@ public class InternetGameView extends GameView{
         Runnable updateOtherUserScore = new Runnable() {
             @Override
             public void run() {
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 while (otherUser.getLife()>0){
                     int[] delayTime = {3000,1000,2000};
                     Random r = new Random();

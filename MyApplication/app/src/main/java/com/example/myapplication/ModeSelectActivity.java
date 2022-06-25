@@ -20,6 +20,7 @@ public class ModeSelectActivity extends AppCompatActivity {
     public static int WINDOW_WIDTH;
     public static int WINDOW_HEIGHT;
     public static boolean flag = false;
+    public static GameView gameView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class ModeSelectActivity extends AppCompatActivity {
                 while (!flag){
 
                 }
-                GameView gameView = new InternetGameView(ModeSelectActivity.this);
+                gameView = new InternetGameView(ModeSelectActivity.this);
                 setContentView(gameView);
 
             }

@@ -15,9 +15,11 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.example.myapplication.GameActivity;
+import com.example.myapplication.InternetUser;
 import com.example.myapplication.Lose;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.ModeSelectActivity;
+import com.example.myapplication.User;
 import com.example.myapplication.Win;
 import com.example.myapplication.rank.RankActivity;
 import com.example.myapplication.aircraft.*;
@@ -62,7 +64,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
 
     protected int timeCycleCount = 0;
 
-
+    public InternetUser otherUser = new InternetUser(new User("initial","initial",0),0);
 
     /**
      * Scheduled 线程池，用于任务调度
@@ -147,6 +149,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,Runn
     public int getScore() {
         return score;
     }
+
+    public int getLife() {return heroAircraft.getHp();}
     //设置背景音乐
     public static void setMusic() {
         musicTurnOn = true;

@@ -122,10 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                         }else{
                             Toast.makeText(LoginActivity.this,"注册失败",Toast.LENGTH_SHORT).show();
                         }
-                        //不能关闭流，socket会随之一起关闭
-//                        in.close();
-//                        writer.close();
-//                        oos.close();
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -205,5 +202,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        try {
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

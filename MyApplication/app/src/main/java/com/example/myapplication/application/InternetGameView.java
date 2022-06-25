@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 
 import com.example.myapplication.GameActivity;
 import com.example.myapplication.ModeSelectActivity;
+import com.example.myapplication.PlayerSocket;
 import com.example.myapplication.Prop.PropBullet;
 import com.example.myapplication.Prop.PropImmune;
 import com.example.myapplication.R;
@@ -37,7 +38,7 @@ public class InternetGameView extends GameView{
     /**
      * 敌机属性
      */
-    private User otherUser = new User("1","1",0);
+
     private float elitePossibility = 0.4f;
     private int hp = 60;
     private int power = 30;
@@ -55,75 +56,7 @@ public class InternetGameView extends GameView{
         RandomPropFactory.setImmunePossibility(0.1f);
         RandomPropFactory.setBombPossibility(0.05f);
         System.out.println("对战模式，周期500ms，精英机掉落加血道具概率0.1，火力道具概率0.1，炸弹道具概率0.05，免疫道具概率0.1");
-        Runnable updateOtherUserHp = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(4000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                while (otherUser.getLife()>0){
-                    int[] delayTime = {500,1000,2000,3000};
-                    Random r = new Random();
-                    float rand = r.nextFloat();
-                    int index;
-                    if(rand<0.2){
-                        index = 0;
-                    }else if(rand<0.7){
-                        index = 1;
-                    }else if(rand <0.8){
-                        index = 2;
-                    }else {
-                        index = 3;
-                    }
-                    try {
-                        Thread.sleep(delayTime[index]);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    otherUser.setLife(otherUser.getLife()-decreaseHp);
-                }
-            }
-        };
-
-        Runnable updateOtherUserScore = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(4000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                while (otherUser.getLife()>0){
-                    int[] delayTime = {3000,1000,2000};
-                    Random r = new Random();
-                    float rand = r.nextFloat();
-                    int index;
-                    if(rand<0.4){
-                        index = 0;
-                    }else if(rand<0.6){
-                        index = 1;
-                    }else{
-                        index = 2;
-                    }
-                    try {
-                        Thread.sleep(delayTime[index]);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    if(rand<0.85){
-                        otherUser.setSocre(otherUser.getSocre()+10);
-                    }else if(rand<0.95){
-                        otherUser.setSocre(otherUser.getSocre()+20);
-                    }else{
-                        otherUser.setSocre(otherUser.getSocre()+40);
-                    }
-                }
-            }
-        };
-        new Thread(updateOtherUserHp).start();
-        new Thread(updateOtherUserScore).start();
+        new Thread(new PlayerSocket()).start();
 
     }
     /**

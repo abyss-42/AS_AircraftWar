@@ -59,20 +59,10 @@ public class RankActivity extends AppCompatActivity {
 
         recordDaoImple.addRecord(record);
         List<Record> tableTata = recordDaoImple.printRecord();
-//        Record record = new Record("hhh",100);
-//        List<Record> test = new ArrayList<>();
-//        test.add(record);
+
         RankAdapter rankAdapter = new RankAdapter(RankActivity.this,R.layout.rank_list,tableTata);
         listView.setAdapter(rankAdapter);
 
-//        Button playAgainButton = findViewById(R.id.againButton);
-//        playAgainButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(RankActivity.this, GameActivity.class);
-//                startActivity(intent);
-//            }
-//        });
 
         getSupportActionBar().hide();
     }

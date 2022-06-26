@@ -39,19 +39,19 @@ public class PlayerSocket implements Runnable{
                 while (!Objects.equals(in.readLine(), "connected")){
                     in.readLine();
                 }
-
+                //传递当前用户
                 OutputStream os=socket.getOutputStream();
                 ObjectOutputStream oos=new ObjectOutputStream(os);
                 oos.writeObject(player);
 
                 os.flush();
                 socket.shutdownOutput();
-
+                //更新当前用户
                 if(ModeSelectActivity.gameView!=null){
                     player.setSocre(ModeSelectActivity.gameView.getScore());
                     player.setLife(ModeSelectActivity.gameView.getLife());
                 }
-
+                //更新对方用户
                 ObjectInputStream ois=new ObjectInputStream(socket.getInputStream());
                 InternetUser otherPlayer = (InternetUser) ois.readObject();
                 ModeSelectActivity.gameView.otherUser = otherPlayer;
